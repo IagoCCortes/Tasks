@@ -2,7 +2,6 @@ import { Service, Inject } from 'typedi';
 import { ITask, ITaskFilterDTO, ITaskUpdateDTO, ITaskCreateDTO } from '../interfaces/ITask';
 import { Types } from 'mongoose';
 import { IUser } from '../interfaces/IUser';
-import moment from 'moment';
 
 @Service()
 export default class TaskService {

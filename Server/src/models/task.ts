@@ -16,31 +16,46 @@ const Task = new mongoose.Schema(
       lowercase: true,
     },
     expectedValue: {
-      type: String,
+      type: Number,
+      required: false,
+    },
+    expectedTime: {
+      type: Number,
       required: false,
     },
     achievedValue: {
-      type: String,
+      type: Number,
+      required: false,
+    },
+    achievedTime: {
+      type: Number,
       required: false,
     },
     dueDate: {
       type: Date,
-      required: true,
+      required: false,
     },
     completedDate: {
       type: Date,
       required: false,
-      default: null,
+    },
+    successRate: {
+      type: Number,
+      required: false,
+    },
+    timesHappened: {
+      type: Number,
+      required: false,
     },
     owner: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: 'User',
     },
-    routine: {
+    frequency: {
       type: mongoose.Schema.Types.ObjectId,
       required: false,
-      ref: 'Routine',
+      ref: 'Frequency',
     },
     types: [
       {

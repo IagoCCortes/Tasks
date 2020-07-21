@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import createDataContext from './createDataContext';
 import {IAction} from 'interfaces/IAction';
 import API from 'services/API';
-import {IAuth, ISignData} from 'interfaces/ContextInterfaces';
+import { ISignData, IAuth } from 'interfaces/IAuth';
 
 const authReducer = (state: any, action: IAction) => {
   switch (action.type) {

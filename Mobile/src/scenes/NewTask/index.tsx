@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {GRAY_LIGHT_1, PRIMARY_DARK} from 'styles/colors';
 import * as Yup from 'yup';
@@ -10,9 +10,22 @@ import FormTextArea from 'components/molecules/FormTextArea';
 import TypesSelector from './TypesSelector';
 import FormPicker from 'components/molecules/FormPicker';
 import FormDatePickerNative from 'components/molecules/FormDatePickerNative';
+import {Context as CommonDataContext} from 'services/context/CommonDataContext';
+import {Context as TaskContext} from 'services/context/TaskContext';
 
 const NewTask = ({}) => {
+  const {getFrequencies, getTypes, state: commonDataState} = useContext(CommonDataContext);
+  const {create, state: taskState} = useContext(TaskContext);
   const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
+
+  useEffect(() => {
+    async function initializeDomainData() {
+      if (commonDataState?.frequencies === null) await getFrequencies!();
+      if (commonDataState?.types === null) await getTypes!();
+    }
+
+    initializeDomainData();
+  }, []);
 
   const addToSchema = (schema: any, field: string, message: string) =>
     selectedTypes.includes(field) ? schema.required(message) : schema.optional();
@@ -20,9 +33,9 @@ const NewTask = ({}) => {
   const validationSchema = Yup.object().shape({
     name: Yup.string().required('Please! name?').max(40, "Don't go beyong 50 characters, plz."),
     description: Yup.string().required('Describe the task.').max(500, "Don't go beyong 50 characters, ok?"),
-    quantity: addToSchema(Yup.number(), 'quantity', 'Give me the number!'),
+    expectedValue: addToSchema(Yup.number(), 'quantity', 'Give me the number!'),
     frequency: addToSchema(Yup.string(), 'routine', 'Choose how often it should happen.'),
-    timed: addToSchema(Yup.number(), 'timed', "How can it be timed if you won't tell the amount of time?!"),
+    expectedTime: addToSchema(Yup.number(), 'timed', "How can it be timed if you won't tell the amount of time?!"),
   });
 
   return (
@@ -32,16 +45,18 @@ const NewTask = ({}) => {
       </View>
       <View style={styles.container}>
         <Formik
-          initialValues={{name: '', description: '', types: '', dueDate: '', quantity: '', frequency: '', timed: ''}}
-          onSubmit={(values) => console.log(values)}
+          initialValues={{name: '', description: '', dueDate: '', expectedValue: '', frequency: '', expectedTime: ''}}
+          onSubmit={async (values) => await create!({...values, types: selectedTypes})}
           validationSchema={validationSchema}>
           {({errors, handleChange, handleBlur, handleSubmit, touched, values, setFieldValue}) => (
             <>
-              <TypesSelector
+            {commonDataState?.types &&
+              (<TypesSelector
                 setSelectedTypes={setSelectedTypes}
                 selectedTypes={selectedTypes}
                 setFieldValue={setFieldValue}
-              />
+                values={commonDataState?.types}
+              />)}
               <View style={styles.form}>
                 <View style={styles.fields}>
                   <FormTextField
@@ -91,16 +106,14 @@ const NewTask = ({}) => {
                       touched={touched}
                       values={values}
                       name="Quantity"
-                      fieldName="quantity"
+                      fieldName="expectedValue"
                     />
                   )}
                   {selectedTypes.includes('routine') && (
                     <FormPicker
                       errors={errors}
-                      handleBlur={handleBlur}
-                      handleChange={handleChange}
                       touched={touched}
-                      values={values}
+                      values={commonDataState?.frequencies}
                       name="Frequency"
                       fieldName="frequency"
                       setFieldValue={setFieldValue}
@@ -114,7 +127,7 @@ const NewTask = ({}) => {
                       touched={touched}
                       values={values}
                       name="Time (minutes)"
-                      fieldName="timed"
+                      fieldName="expectedTime"
                     />
                   )}
                 </View>

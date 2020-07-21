@@ -8,10 +8,12 @@ const TypesSelector = ({
   selectedTypes,
   setSelectedTypes,
   setFieldValue,
+  values,
 }: {
   selectedTypes: string[];
   setSelectedTypes: Function;
   setFieldValue: any;
+  values: any;
 }) => {
   const toggleType = (type: string) => {
     const types = selectedTypes;
@@ -25,64 +27,22 @@ const TypesSelector = ({
     setSelectedTypes([...types]);
   };
 
+  const iconNames: any = {
+    timed: 'timer',
+    quantity: 'plus-one',
+    problem: 'report-problem',
+    routine: 'replay',
+    relax: 'beach-access',
+    project: 'lightbulb-outline',
+    other: 'casino',
+    physical: 'directions-run',
+  };
+
   return (
     <View style={styles.container}>
-      <TypeChoice
-        name={'Timed'}
-        type={'timed'}
-        selected={selectedTypes.includes('timed')}
-        toggleType={toggleType}
-        icon={'timer'}
-      />
-      <TypeChoice
-        name={'Counted'}
-        type={'quantity'}
-        selected={selectedTypes.includes('quantity')}
-        toggleType={toggleType}
-        icon={'plus-one'}
-      />
-      <TypeChoice
-        name={'Problem'}
-        type={'problem'}
-        selected={selectedTypes.includes('problem')}
-        toggleType={toggleType}
-        icon={'report-problem'}
-      />
-      <TypeChoice
-        name={'Physical'}
-        type={'physical'}
-        selected={selectedTypes.includes('physical')}
-        toggleType={toggleType}
-        icon={'directions-run'}
-      />
-      <TypeChoice
-        name={'Relax'}
-        type={'relax'}
-        selected={selectedTypes.includes('relax')}
-        toggleType={toggleType}
-        icon={'beach-access'}
-      />
-      <TypeChoice
-        name={'Routine'}
-        type={'routine'}
-        selected={selectedTypes.includes('routine')}
-        toggleType={toggleType}
-        icon={'replay'}
-      />
-      <TypeChoice
-        name={'Project'}
-        type={'project'}
-        selected={selectedTypes.includes('project')}
-        toggleType={toggleType}
-        icon={'lightbulb-outline'}
-      />
-      <TypeChoice
-        name={'Other'}
-        type={'other'}
-        selected={selectedTypes.includes('other')}
-        toggleType={toggleType}
-        icon={'casino'}
-      />
+      {values.map((t: any) => (
+        <TypeChoice name={t.name} selected={selectedTypes.includes(t.name)} toggleType={toggleType} icon={iconNames[t.name]} key={t._id} />
+      ))}
     </View>
   );
 };

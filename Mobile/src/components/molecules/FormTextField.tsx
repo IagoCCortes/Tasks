@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {StyleSheet, Text, View, Animated} from 'react-native';
 import {GRAY_DARK, SUCCESS, GRAY_MEDIUM_2} from 'styles/colors';
 import {TextInput} from 'react-native-gesture-handler';
+import useAnimatedHeader from 'hooks/useAnimatedHeader';
 
 const FormTextField = ({
   errors,
@@ -21,18 +22,12 @@ const FormTextField = ({
   fieldName: string;
 }) => {
   const [focused, setFocused] = useState(false);
-  const headerAnimation = useState(new Animated.Value(0))[0];
-
-  const animateHeader = (open = true) => {
-    Animated.spring(headerAnimation, {
-      toValue: open ? -20 : 0,
-      useNativeDriver: true,
-    }).start();
-  };
+  const [animate, setAnimate] = useState<undefined | boolean>(undefined);
+  const headerAnimation = useAnimatedHeader(animate);
 
   const blur = () => {
     if (values[fieldName] === '') {
-      animateHeader(false);
+      setAnimate(false);
       setFocused(false);
     }
 
@@ -42,7 +37,7 @@ const FormTextField = ({
   const focus = () => {
     if (values[fieldName] === '') {
       setFocused(true);
-      animateHeader();
+      setAnimate(true);
     }
   };
 

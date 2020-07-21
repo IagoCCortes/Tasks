@@ -1,5 +1,5 @@
 import React, {useReducer} from 'react';
-import {IContextValues} from 'interfaces/ContextInterfaces';
+import { IContextValues } from 'interfaces/common/commonInterfaces';
 
 export default <T extends IContextValues>(reducer: any, actions: any, defaultValue: Object) => {
   const Context = React.createContext<Partial<T>>({});

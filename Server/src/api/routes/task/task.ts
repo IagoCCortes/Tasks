@@ -54,7 +54,7 @@ export default (app: Router) => {
     '/',
     middlewares.isAuth,
     middlewares.attachCurrentUser,
-    celebrate({ body: schema.taskCreate }),
+    // celebrate({ body: schema.taskCreate }),
     async (req: Request, res: Response, next: NextFunction) => {
       const logger = Container.get('logger') as winston.Logger;
       logger.debug(`Calling create on task endpoint with body: ${req.body}`);

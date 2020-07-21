@@ -5,11 +5,11 @@ export default {
   taskCreate: Joi.object().keys({
     name: Joi.string().required(),
     description: Joi.string().required(),
-    expectedValue: Joi.string().optional(),
-    achievedValue: Joi.string().optional(),
-    dueDate: Joi.date().required(),
-    routine: Joi.date().default(null),
-    types: Joi.array().items(JoiObjectId()).required(),
+    expectedValue: Joi.number().optional(),
+    expectedTime: Joi.number().optional(),
+    dueDate: Joi.date().optional(),
+    frequency: JoiObjectId().optional(),
+    types: Joi.array().items(JoiObjectId()).optional(),
   }),
   taskUpdate: Joi.object().keys({
     name: Joi.string().optional(),

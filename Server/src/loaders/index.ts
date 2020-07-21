@@ -29,6 +29,16 @@ export default async ({ expressApp }) => {
     model: require('../models/task').default,
   };
 
+  const frequencyModel = {
+    name: 'frequencyModel',
+    model: require('../models/frequency').default,
+  };
+
+  const typeModel = {
+    name: 'typeModel',
+    model: require('../models/type').default,
+  };
+
   const routineModel = {
     name: 'routineModel',
     model: require('../models/routine').default,
@@ -37,7 +47,7 @@ export default async ({ expressApp }) => {
   // It returns the agenda instance because it's needed in the subsequent loaders
   const { agenda } = await dependencyInjectorLoader({
     mongoConnection,
-    models: [userModel, taskModel, routineModel],
+    models: [frequencyModel, routineModel, taskModel, typeModel, userModel],
   });
   Logger.info('✌️ Dependency Injector loaded');
 

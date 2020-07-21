@@ -4,21 +4,26 @@ export interface ITask {
   _id: string;
   name: string;
   description: string;
-  expectedValue: string;
-  achievedValue: string;
+  expectedValue: number;
+  achievedValue: number;
+  expectedTime: number;
+  achievedTime: number;
   dueDate: Date;
   completedDate: Date;
+  successRate: number;
+  timesHappened: number;
   owner: Types.ObjectId;
-  routine: Types.ObjectId;
+  frequency: Types.ObjectId;
   types: [Types.ObjectId];
 }
 
 export interface ITaskCreateDTO {
   name: string;
   description: string;
-  expectedValue: string;
-  dueDate: Date;
-  routine: Types.ObjectId;
+  expectedValue?: number;
+  expectedTime?: number;
+  dueDate?: Date;
+  frequency?: Types.ObjectId;
   types: [Types.ObjectId];
 }
 

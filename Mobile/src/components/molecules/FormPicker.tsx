@@ -2,18 +2,18 @@ import React, {useState} from 'react';
 import {Animated, StyleSheet, Text, View} from 'react-native';
 import {GRAY_DARK, SUCCESS, GRAY_MEDIUM_2} from 'styles/colors';
 import {Picker} from 'native-base';
+import useAnimatedHeader from 'hooks/useAnimatedHeader';
 
 const FormPicker = ({
   errors,
   setFieldValue,
   touched,
+  values,
   name,
   fieldName,
 }: {
   errors: any;
-  handleChange: any;
   setFieldValue: any;
-  handleBlur: any;
   touched: any;
   values: any;
   name: string;
@@ -21,14 +21,8 @@ const FormPicker = ({
 }) => {
   const [moveHeader, setMoveHeader] = useState(false);
   const [selectedValue, setSelectedValue] = useState<string>('daily');
-  const headerAnimation = useState(new Animated.Value(0))[0];
-
-  const animateHeader = (open = true) => {
-    Animated.spring(headerAnimation, {
-      toValue: open ? -35 : 0,
-      useNativeDriver: true,
-    }).start();
-  };
+  const [animate, setAnimate] = useState<undefined | boolean>(undefined);
+  const headerAnimation = useAnimatedHeader(animate, -35);
 
   return (
     <View style={styles.inputField}>
@@ -50,12 +44,11 @@ const FormPicker = ({
             setSelectedValue(value);
             setFieldValue('frequency', value);
             setMoveHeader(true);
-            animateHeader();
+            setAnimate(true);
           }}>
-          <Picker.Item label="Daily" value="daily" />
-          <Picker.Item label="Weekly" value="weekly" />
-          <Picker.Item label="Monthly" value="monthly" />
-          <Picker.Item label="Yearly" value="yearly" />
+          {values.map((v: any) => (
+            <Picker.Item label={v.name.charAt(0).toUpperCase() + v.name.slice(1)} value={v._id} key={v._id} />
+          ))}
         </Picker>
       </View>
       {touched[fieldName] && errors[fieldName] && <Text style={styles.error}>{errors[fieldName]}</Text>}

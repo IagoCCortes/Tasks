@@ -1,9 +1,4 @@
-type Modify<T, R> = Omit<T, keyof R> & R;
-
-export interface IContextValues {
-  [key: string]: Function;
-  state: any;
-}
+import {IContextValues, Modify} from './common/commonInterfaces';
 
 export type IAuth = Modify<
   IContextValues,

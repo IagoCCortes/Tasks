@@ -23,10 +23,10 @@ export default async () => {
           name: 'project',
         }),
         new Type({
-          name: 'organization',
+          name: 'other',
         }),
         new Type({
-          name: 'relaxation',
+          name: 'relax',
         }),
         new Type({
           name: 'physical',
