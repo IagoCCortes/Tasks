@@ -12,17 +12,20 @@ const route = Router();
 export default (app: Router) => {
   app.use('/task', route);
 
-  route.post(
+  route.get(
     '/filter',
     middlewares.isAuth,
     middlewares.attachCurrentUser,
-    celebrate({ body: schema.taskList }),
+    celebrate({ query: schema.taskList }),
     async (req: Request, res: Response, next: NextFunction) => {
       const logger = Container.get('logger') as winston.Logger;
-      logger.debug(`Calling filtered tasks endpoint with body: ${req.body}`);
+      logger.debug(`Calling filtered tasks endpoint with query: ${req.query}`);
       try {
         const taskServiceInstance = Container.get(TaskService);
-        const tasks = await taskServiceInstance.GetAllByUserFiltered(req.body as ITaskFilterDTO, req.currentUser);
+        const tasks = await taskServiceInstance.GetAllByUserFiltered(
+          (req.query as unknown) as ITaskFilterDTO,
+          req.currentUser,
+        );
         return res.status(200).json(tasks);
       } catch (e) {
         logger.error('🔥 error: %o', e);

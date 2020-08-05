@@ -11,12 +11,12 @@ export type ICommonData = Modify<
 };
 
 export interface ICommonDataState {
-  frequencies: IDomainData;
-  types: IDomainData;
+  frequencies: IDomainData[];
+  types: IDomainData[];
   errorMessage: string;
 }
 
 interface IDomainData {
-  id: string;
+  _id: string;
   name: string;
 }

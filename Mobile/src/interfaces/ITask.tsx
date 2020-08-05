@@ -20,7 +20,15 @@ export interface ICreateTask {
   expectedTime?: number;
   dueDate?: Date;
   frequency?: string;
-  types: [string];
+  types: string[];
+}
+
+export interface ITaskFilter {
+  completed: boolean;
+  types: string[];
+  limit: number;
+  page: number;
+  sort: string;
 }
 
 export type CreateTaskUnionType = "name" | "description" | "expectedValue" | "expectedTime" | "dueDate" | "frequency" | "types";

@@ -27,7 +27,7 @@ const TypesSelector = ({
     setSelectedTypes([...types]);
   };
 
-  const iconNames: any = {
+  const iconNames: {[key: string]: string} = {
     timed: 'timer',
     quantity: 'plus-one',
     problem: 'report-problem',
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     backgroundColor: PRIMARY_MEDIUM,
-    height: ScreenHeight,
+    height: ScreenHeight - 25,
     justifyContent: 'space-between',
     paddingBottom: 120,
     width: scaleSize(60),

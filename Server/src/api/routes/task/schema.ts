@@ -22,7 +22,6 @@ export default {
   }),
   taskList: Joi.object().keys({
     completed: Joi.boolean().optional(),
-    routine: Joi.boolean().optional(),
     types: Joi.array().items(JoiObjectId()).optional(),
     limit: Joi.number().optional().min(10).max(50).default(10),
     page: Joi.number().optional().min(1).default(1),
