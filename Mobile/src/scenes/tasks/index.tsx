@@ -1,19 +1,31 @@
-import React, {useState} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import {View, FlatList, Animated, StyleSheet} from 'react-native';
 import ListItem from 'components/molecules/ListItem';
 import {PRIMARY_DARK, PRIMARY_MEDIUM} from 'styles/colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import listData from 'utils/listData';
 import Filters from './Filters';
 import RegularHeader from './RegularHeader';
 import SearchHeader from './SearchHeader';
+import {Context as TaskContext} from 'services/context/TaskContext';
 Icon.loadFont();
 
 const TasksScreen = ({navigation}: {navigation: any}) => {
+  const {getFiltered, state: taskState} = useContext(TaskContext);
   const searchFieldAnimationValue = useState(new Animated.Value(500))[0];
   const filtersAnimationValue = useState(new Animated.Value(-1000))[0];
   const [search, setSearch] = useState(false);
   const [filter, setFilter] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadtasks() {
+      if (taskState?.tasks === undefined) await getFiltered!();
+      setLoading(false);
+    }
+
+    setLoading(true);
+    loadtasks();
+  }, []);
 
   const animateSearch = () => {
     !search ? setSearch(true) : null;
@@ -35,25 +47,34 @@ const TasksScreen = ({navigation}: {navigation: any}) => {
 
   return (
     <>
-      <View style={search ? {...styles.header, ...styles.headerSearch} : styles.header}>
-        {search ? (
-          <Animated.View
-            style={{...styles.header, ...styles.headerSearch, transform: [{translateX: searchFieldAnimationValue}]}}>
-            <RegularHeader animateSearch={animateSearch} />
-          </Animated.View>
-        ) : (
-          <SearchHeader animateFilters={animateFilters} animateSearch={animateSearch} filter={filter} />
-        )}
-      </View>
-      {filter && (
-        <Animated.View style={{...styles.filters, transform: [{translateX: filtersAnimationValue}]}}>
-          <Filters />
-        </Animated.View>
+      {!loading && (
+        <>
+          <View style={search ? {...styles.header, ...styles.headerSearch} : styles.header}>
+            {search ? (
+              <Animated.View
+                style={{
+                  ...styles.header,
+                  ...styles.headerSearch,
+                  transform: [{translateX: searchFieldAnimationValue}],
+                }}>
+                <RegularHeader animateSearch={animateSearch} />
+              </Animated.View>
+            ) : (
+              <SearchHeader animateFilters={animateFilters} animateSearch={animateSearch} filter={filter} />
+            )}
+          </View>
+          {filter && (
+            <Animated.View style={{...styles.filters, transform: [{translateX: filtersAnimationValue}]}}>
+              <Filters />
+            </Animated.View>
+          )}
+          <FlatList
+            data={taskState?.tasks}
+            keyExtractor={task => task._id}
+            renderItem={({item}) => <ListItem text={item.name} navigation={navigation} />}
+          />
+        </>
       )}
-      <FlatList
-        data={listData}
-        renderItem={({item}) => <ListItem key={item.key} text={item.text} navigation={navigation} />}
-      />
     </>
   );
 };

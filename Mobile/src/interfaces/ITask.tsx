@@ -11,6 +11,7 @@ export type ITask = Modify<
 
 export interface ITaskState {
   errorMessage: string;
+  tasks: any;
 }
 
 export interface ICreateTask {
