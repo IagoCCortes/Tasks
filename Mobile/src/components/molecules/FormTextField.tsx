@@ -35,7 +35,7 @@ const FormTextField = ({
   };
 
   const focus = () => {
-    if (values[fieldName] === '') {
+    if (values[fieldName] === '' || values[fieldName] === undefined) {
       setFocused(true);
       setAnimate(true);
     }

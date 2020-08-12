@@ -31,8 +31,8 @@ const create = (dispatch: Function) => async (data: ICreateTask) => {
 
 const getFiltered = (dispatch: Function) => async (data: ITaskFilter) => {
   try {
-    await API.get('/task/filter');
-    dispatch({type: 'get_filtered'});
+    const response = await API.get('/task/filter');
+    dispatch({type: 'get_filtered', payload: response.data});
   } catch (err) {
     dispatch({
       type: 'add_error',
@@ -41,4 +41,4 @@ const getFiltered = (dispatch: Function) => async (data: ITaskFilter) => {
   }
 };
 
-export const {Provider, Context} = createDataContext<ITask>(taskReducer, {create, getFiltered}, {errorMessage: ''});
+export const {Provider, Context} = createDataContext<ITask>(taskReducer, {create, getFiltered}, {errorMessage: '', tasks: undefined});
