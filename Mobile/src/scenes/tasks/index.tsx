@@ -1,7 +1,7 @@
 import React, {useState, useContext, useEffect} from 'react';
 import {View, FlatList, Animated, StyleSheet} from 'react-native';
 import ListItem from 'components/molecules/ListItem';
-import {PRIMARY_DARK, PRIMARY_MEDIUM} from 'styles/colors';
+import {BLACK, GRAY_LIGHT_3, GRAY_LIGHT_4, PRIMARY_DARK, PRIMARY_MEDIUM} from 'styles/colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Filters from './Filters';
 import RegularHeader from './RegularHeader';
@@ -68,10 +68,13 @@ const TasksScreen = ({navigation}: {navigation: any}) => {
               <Filters />
             </Animated.View>
           )}
+          {console.log(taskState?.tasks)}
           <FlatList
+            style={styles.body}
+            contentContainerStyle={{alignItems: 'stretch'}}
             data={taskState?.tasks}
             keyExtractor={task => task._id}
-            renderItem={({item}) => <ListItem text={item.name} navigation={navigation} />}
+            renderItem={({item}) => <ListItem data={item} navigation={navigation} />}
           />
         </>
       )}
@@ -80,6 +83,9 @@ const TasksScreen = ({navigation}: {navigation: any}) => {
 };
 
 const styles = StyleSheet.create({
+  body: {
+    backgroundColor: GRAY_LIGHT_3,
+  },
   filters: {
     alignItems: 'center',
     backgroundColor: PRIMARY_MEDIUM,

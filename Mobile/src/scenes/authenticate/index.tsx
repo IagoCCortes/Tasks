@@ -7,12 +7,20 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import {Context as AuthContext} from 'services/context/AuthContext';
 import Signin from './Signin';
 import Signup from './Signup';
+import Loading from 'scenes/loading';
 Icon.loadFont();
 
 const AuthenticateScreen = () => {
   const {signin, signup} = useContext(AuthContext);
   const [screen, setScreen] = useState('none');
+  const [loading, setLoading] = useState(false);
   const value = useState(new Animated.ValueXY({x: 0, y: 350}))[0];
+
+  const loadAction = async (callBack: Function, parameters: object) => {
+    setLoading(true);
+    await callBack(parameters);
+    setLoading(false);
+  };
 
   const clickChoice = (choice: string) => {
     setScreen(choice);
@@ -25,28 +33,42 @@ const AuthenticateScreen = () => {
   };
 
   return (
-    <View style={styles.view}>
-      {screen !== 'none' && (
-        <Text style={styles.iconButton} onPress={() => setScreen('none')}>
-          <Icon name="arrow-back" size={20} color="#FFF" style={styles.backIcon} />
-        </Text>
+    <>
+      {loading ? (
+        <Loading />
+      ) : (
+        <View style={styles.view}>
+          {screen !== 'none' && (
+            <Text style={styles.iconButton} onPress={() => setScreen('none')}>
+              <Icon name="arrow-back" size={20} color="#FFF" style={styles.backIcon} />
+            </Text>
+          )}
+          <View style={styles.logoContainer}>
+            <Image style={styles.logo} source={require('assets/images/logo.png')} />
+          </View>
+          <View style={styles.fields}>
+            {screen === 'none' ? (
+              <>
+                <MainButton
+                  text={'Sign in'}
+                  callback={() => clickChoice('signin')}
+                  margin={() => margin(0, 0, 15, 0)}
+                />
+                <MainButton
+                  text={'Sign up'}
+                  callback={() => clickChoice('signup')}
+                  margin={() => margin(0, 0, 15, 0)}
+                />
+              </>
+            ) : (
+              <Animated.View style={value.getLayout()}>
+                {screen === 'signin' ? <Signin signin={signin as Function} action={loadAction} /> : <Signup signup={signup as Function} action={loadAction} />}
+              </Animated.View>
+            )}
+          </View>
+        </View>
       )}
-      <View style={styles.logoContainer}>
-        <Image style={styles.logo} source={require('assets/images/logo.png')} />
-      </View>
-      <View style={styles.fields}>
-        {screen === 'none' ? (
-          <>
-            <MainButton text={'Sign in'} callback={() => clickChoice('signin')} margin={() => margin(0, 0, 15, 0)} />
-            <MainButton text={'Sign up'} callback={() => clickChoice('signup')} margin={() => margin(0, 0, 15, 0)} />
-          </>
-        ) : (
-          <Animated.View style={value.getLayout()}>
-            {screen === 'signin' ? <Signin signin={signin as Function} /> : <Signup signup={signup as Function} />}
-          </Animated.View>
-        )}
-      </View>
-    </View>
+    </>
   );
 };
 

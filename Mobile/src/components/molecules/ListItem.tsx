@@ -1,33 +1,32 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {scaleSize} from 'styles/mixins';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {GRAY_LIGHT_1, PRIMARY_DARK, PRIMARY_MEDIUM} from 'styles/colors';
+import {PRIMARY_MEDIUM, WHITE} from 'styles/colors';
 Icon.loadFont();
 
-const ListItem = ({text, navigation}: {text: string; navigation: any}) => {
+const ListItem = ({data, navigation}: {data: object; navigation: any}) => {
   return (
-    <View style={styles.view}>
-      <View style={styles.textView}>
-        <Text style={styles.text} onPress={() => navigation.push('Task')}>
-          {text}
+    <TouchableOpacity style={styles.card} onPress={() => navigation.push('Task')}>
+      <View style={styles.cardHeader}>
+        <Text style={styles.text} >
+          {data.name}
+        </Text>
+        <Text style={styles.text}>
+          {data.createdAt}
         </Text>
       </View>
-      <View style={styles.iconView}>
-        <Text onPress={() => console.log('todo')}>
-          <Icon name="remove" size={20} style={styles.icon} />
+      <View style={styles.cardDetail}>
+        <Text>
+          {data.description}
         </Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
-  icon: {
-    color: PRIMARY_MEDIUM,
-    fontSize: 25,
-  },
-  iconView: {
+  cardDetail: {
     alignItems: 'center',
     flex: 1,
   },
@@ -36,17 +35,24 @@ const styles = StyleSheet.create({
     padding: 12,
     textAlign: 'justify',
   },
-  textView: {
-    flex: 9,
-  },
-  view: {
-    alignItems: 'center',
-    backgroundColor: GRAY_LIGHT_1,
-    borderWidth: 1,
-    borderColor: PRIMARY_DARK,
+  cardHeader: {
+    flex: 1,
     flexDirection: 'row',
-    minHeight: scaleSize(80),
     justifyContent: 'space-between',
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 5,
+  },
+  card: {
+    alignSelf: 'center',
+    backgroundColor: WHITE,
+    borderRadius: 25,
+    elevation: 5,
+    justifyContent: 'center',
+    marginBottom: 10,
+    marginTop: 10,
+    height: 150,
+    width: '92%',
   },
 });
 

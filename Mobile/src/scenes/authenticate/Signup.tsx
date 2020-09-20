@@ -6,7 +6,7 @@ import FormTextField from 'components/molecules/FormTextField';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 
-export default ({signup}: {signup: Function}) => {
+export default ({signup, action}: {signup: Function; action: Function}) => {
   const validationSchema = Yup.object().shape({
     name: Yup.string().required('We need a Username.'),
     email: Yup.string().required('Please! e-mail?').email('That is not an e-mail'),
@@ -19,7 +19,7 @@ export default ({signup}: {signup: Function}) => {
   return (
     <Formik
       initialValues={{name: '', email: '', password: '', repPassword: ''}}
-      onSubmit={(values) => signup(values)}
+      onSubmit={(values) => action(signup, values)}
       validationSchema={validationSchema}>
       {({errors, handleChange, handleBlur, handleSubmit, touched, values}) => (
         <>
