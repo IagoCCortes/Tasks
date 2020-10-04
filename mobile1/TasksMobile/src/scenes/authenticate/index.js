@@ -1,97 +1,35 @@
-import React, {useState, useContext} from 'react';
-import {Text, StyleSheet, View, Image, Animated} from 'react-native';
-import {GRAY_LIGHT_1, BLACK} from 'styles/colors';
-import {scaleSize, margin} from 'styles/mixins';
-import MainButton from 'components/atoms/MainButton';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import {Context as AuthContext} from 'services/context/AuthContext';
-import Signin from './Signin';
-import Signup from './Signup';
-import Loading from 'scenes/loading';
-Icon.loadFont();
+import React from 'react';
+import SquareButtonRight from '../../components/atoms/buttons/SquareButtonRight';
+import {GRAY_DARK_1, PRIMARY_GREEN, PRIMARY_PURPLE, SECONDARY_GREEN, SECONDARY_PURPLE} from '../../styles/colors';
+import {BackGroundImage, ButtonsContainer, Container, ImageContainer, Logo} from './Styles';
 
-const AuthenticateScreen = () => {
-  const {signin, signup} = useContext(AuthContext);
-  const [screen, setScreen] = useState('none');
-  const [loading, setLoading] = useState(false);
-  const value = useState(new Animated.ValueXY({x: 0, y: 350}))[0];
-
-  const loadAction = async (callBack, parameters) => {
-    setLoading(true);
-    await callBack(parameters);
-    setLoading(false);
-  };
-
-  const clickChoice = (choice) => {
-    setScreen(choice);
-    value.setValue({x: 0, y: 350});
-    Animated.timing(value, {
-      toValue: {x: 0, y: 0},
-      duration: 500,
-      useNativeDriver: false,
-    }).start();
-  };
-
-  return (
-    <View style={styles.view}>
-      {loading && <Loading />}
-      {screen !== 'none' && (
-        <Text style={styles.iconButton} onPress={() => setScreen('none')}>
-          <Icon name="arrow-back" size={20} color="#FFF" style={styles.backIcon} />
-        </Text>
-      )}
-      <View style={styles.logoContainer}>
-        <Image style={styles.logo} source={require('assets/images/logo.png')} />
-      </View>
-      <View style={styles.fields}>
-        {screen === 'none' ? (
-          <>
-            <MainButton text={'Sign in'} callback={() => clickChoice('signin')} margin={() => margin(0, 0, 15, 0)} />
-            <MainButton text={'Sign up'} callback={() => clickChoice('signup')} margin={() => margin(0, 0, 15, 0)} />
-          </>
-        ) : (
-          <Animated.View style={value.getLayout()}>
-            {screen === 'signin' ? (
-              <Signin signin={signin} action={loadAction} />
-            ) : (
-              <Signup signup={signup} action={loadAction} />
-            )}
-          </Animated.View>
-        )}
-      </View>
-    </View>
-  );
-};
-
-const styles = StyleSheet.create({
-  backIcon: {
-    fontSize: 35,
-    color: BLACK,
-  },
-  fields: {
-    flex: 1,
-    justifyContent: 'flex-end',
-  },
-  iconButton: {
-    left: 10,
-    position: 'absolute',
-    top: 10,
-    zIndex: 10,
-  },
-  logo: {
-    height: scaleSize(400),
-    resizeMode: 'contain',
-    width: scaleSize(400),
-  },
-  logoContainer: {
-    // flex: 2,
-  },
-  view: {
-    alignItems: 'center',
-    backgroundColor: GRAY_LIGHT_1,
-    flex: 1,
-    justifyContent: 'center',
-  },
-});
+const AuthenticateScreen = ({navigation}) => (
+  <Container>
+    <ImageContainer>
+      <BackGroundImage source={require('assets/images/backgroundAUTH.jpg')} />
+      <Logo source={require('assets/images/logoMAIN.png')} />
+    </ImageContainer>
+    <ButtonsContainer>
+      <SquareButtonRight
+        bgColors={[PRIMARY_PURPLE, SECONDARY_PURPLE, GRAY_DARK_1]}
+        text={'Sign in'}
+        callback={() =>
+          navigation.navigate('Sign In', {
+            option: 'signin',
+          })
+        }
+      />
+      <SquareButtonRight
+        bgColors={[PRIMARY_GREEN, SECONDARY_GREEN, GRAY_DARK_1]}
+        text={'Sign up'}
+        callback={() =>
+          navigation.navigate('Sign Up', {
+            option: 'signup',
+          })
+        }
+      />
+    </ButtonsContainer>
+  </Container>
+);
 
 export default AuthenticateScreen;

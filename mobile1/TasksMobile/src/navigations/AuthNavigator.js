@@ -1,8 +1,6 @@
 import React from 'react';
 import {CardStyleInterpolators, createStackNavigator} from '@react-navigation/stack';
-import AuthenticateScreen2 from '../scenes/authenticate/index2';
-import Signin from '../scenes/authenticate/Signin';
-import Signup from '../scenes/authenticate/Signup';
+import AuthenticateScreen from '../scenes/authenticate/index';
 import Forms from '../scenes/authenticate/Forms';
 
 const Stack = createStackNavigator();
@@ -32,9 +30,9 @@ const AuthNavigator = () => {
         // },
       }}
       headerMode="float">
-      <Stack.Screen name="Initial" component={AuthenticateScreen2} options={{headerShown: false}} />
+      <Stack.Screen name="Initial" component={AuthenticateScreen} options={{headerShown: false}} />
       <Stack.Screen name="Sign In" component={Forms} />
-      <Stack.Screen name="Sign Up" component={Signup} />
+      <Stack.Screen name="Sign Up" component={Forms} />
     </Stack.Navigator>
   );
 };

@@ -1,12 +1,14 @@
 import React from 'react';
-import {Text, StyleSheet} from 'react-native';
-import MainButton from 'components/atoms/MainButton';
+import {Image, StyleSheet, View} from 'react-native';
 import {GRAY_DARK} from 'styles/colors';
-import {margin} from 'styles/mixins';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
-import FormTextField from 'components/molecules/FormTextField';
-import FormPassword from 'components/molecules/FormPassword';
+import SquarePasswordField from '../../components/molecules/SquarePasswordField';
+import SquareTextField from '../../components/molecules/SquareTextField';
+import SquareButtonCenter from '../../components/atoms/buttons/SquareButtonCenter';
+import {PRIMARY_PURPLE} from '../../styles/colors';
+import {scaleSize} from '../../styles/mixins';
+import {FormContainer, LogoContainer, MiniLogo} from './Styles';
 
 export default ({signin, action}) => {
   const validationSchema = Yup.object().shape({
@@ -20,8 +22,11 @@ export default ({signin, action}) => {
       onSubmit={(values) => action(signin, values)}
       validationSchema={validationSchema}>
       {({errors, handleChange, handleBlur, handleSubmit, touched, values}) => (
-        <>
-          <FormTextField
+        <FormContainer>
+          <LogoContainer>
+            <MiniLogo source={require('assets/images/logoPURPLE.png')} />
+          </LogoContainer>
+          <SquareTextField
             errors={errors}
             handleBlur={handleBlur}
             handleChange={handleChange}
@@ -30,7 +35,8 @@ export default ({signin, action}) => {
             name="E-mail"
             fieldName="email"
           />
-          <FormPassword
+          <View style={styles.space} />
+          <SquarePasswordField
             errors={errors}
             handleBlur={handleBlur}
             handleChange={handleChange}
@@ -39,20 +45,19 @@ export default ({signin, action}) => {
             name="Password"
             fieldName="password"
           />
-          <Text style={styles.fadedText} onPress={() => console.log('to do')}>
+          {/* <Text style={styles.fadedText} onPress={() => console.log('to do')}>
             Forgot your password?
-          </Text>
-          <MainButton text={'Sign in'} callback={handleSubmit} margin={() => margin(15, 0, 15, 0)} />
-        </>
+          </Text> */}
+          <View style={styles.space} />
+          <SquareButtonCenter text={'Sign in'} callback={handleSubmit} bgColor={PRIMARY_PURPLE} />
+        </FormContainer>
       )}
     </Formik>
   );
 };
 
 const styles = StyleSheet.create({
-  fadedText: {
-    alignSelf: 'flex-end',
-    color: GRAY_DARK,
-    marginTop: 10,
+  space: {
+    height: scaleSize(20),
   },
 });

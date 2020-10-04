@@ -1,10 +1,13 @@
 import React from 'react';
-import MainButton from 'components/atoms/MainButton';
-import {margin} from 'styles/mixins';
-import FormPassword from 'components/molecules/FormPassword';
-import FormTextField from 'components/molecules/FormTextField';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
+import SquareTextField from '../../components/molecules/SquareTextField';
+import SquarePasswordField from '../../components/molecules/SquarePasswordField';
+import SquareButtonCenter from '../../components/atoms/buttons/SquareButtonCenter';
+import {StyleSheet, View} from 'react-native';
+import {scaleSize} from '../../styles/mixins';
+import {FormContainer, LogoContainer, MiniLogo} from './Styles';
+import {PRIMARY_GREEN} from '../../styles/colors';
 
 export default ({signup, action}) => {
   const validationSchema = Yup.object().shape({
@@ -22,8 +25,12 @@ export default ({signup, action}) => {
       onSubmit={(values) => action(signup, values)}
       validationSchema={validationSchema}>
       {({errors, handleChange, handleBlur, handleSubmit, touched, values}) => (
-        <>
-          <FormTextField
+        <FormContainer>
+          <LogoContainer>
+            <MiniLogo source={require('assets/images/logoPURPLE.png')} />
+            {/* <MiniLogo source={require('assets/images/logoGREEN.png')} /> */}
+          </LogoContainer>
+          <SquareTextField
             errors={errors}
             handleBlur={handleBlur}
             handleChange={handleChange}
@@ -32,7 +39,7 @@ export default ({signup, action}) => {
             name="Username"
             fieldName="name"
           />
-          <FormTextField
+          <SquareTextField
             errors={errors}
             handleBlur={handleBlur}
             handleChange={handleChange}
@@ -41,7 +48,7 @@ export default ({signup, action}) => {
             name="E-mail"
             fieldName="email"
           />
-          <FormPassword
+          <SquarePasswordField
             errors={errors}
             handleBlur={handleBlur}
             handleChange={handleChange}
@@ -50,7 +57,7 @@ export default ({signup, action}) => {
             name="Password"
             fieldName="password"
           />
-          <FormPassword
+          <SquarePasswordField
             errors={errors}
             handleBlur={handleBlur}
             handleChange={handleChange}
@@ -59,9 +66,16 @@ export default ({signup, action}) => {
             name="Repeat Password"
             fieldName="repPassword"
           />
-          <MainButton text={'Sign up'} callback={handleSubmit} margin={() => margin(15, 0, 15, 0)} />
-        </>
+          <View style={styles.space} />
+          <SquareButtonCenter text={'Sign up'} callback={handleSubmit} bgColor={PRIMARY_GREEN} />
+        </FormContainer>
       )}
     </Formik>
   );
 };
+
+const styles = StyleSheet.create({
+  space: {
+    height: scaleSize(20),
+  },
+});

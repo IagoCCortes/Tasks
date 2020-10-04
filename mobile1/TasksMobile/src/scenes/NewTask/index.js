@@ -4,7 +4,7 @@ import {GRAY_LIGHT_1, PRIMARY_DARK} from 'styles/colors';
 import * as Yup from 'yup';
 import {Formik} from 'formik';
 import {margin} from 'styles/mixins';
-import MainButton from 'components/atoms/MainButton';
+import EllipticalButton from 'components/atoms/buttons/EllipticalButton';
 import TypesSelector from './TypesSelector';
 import {Context as CommonDataContext} from 'services/context/CommonDataContext';
 import {Context as TaskContext} from 'services/context/TaskContext';
@@ -83,7 +83,7 @@ const NewTask = ({}) => {
                 />
                 {/* <Text>{JSON.stringify(errors)}</Text>
                 <Text>{JSON.stringify(touched)}</Text> */}
-                <MainButton
+                <EllipticalButton
                   text={'Create'}
                   // disabled={!isValid}
                   callback={handleSubmit}

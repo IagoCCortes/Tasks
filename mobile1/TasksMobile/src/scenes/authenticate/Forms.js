@@ -1,28 +1,36 @@
-import React from 'react';
-import {StyleSheet, View} from 'react-native';
-import Signin2 from './Signin2';
+import React, {useContext, useState} from 'react';
+import Signin from './Signin';
+import {Context as AuthContext} from 'services/context/AuthContext';
+import Signup from './Signup';
+import {PRIMARY_GREEN, PRIMARY_PURPLE, SECONDARY_GREEN, SECONDARY_PURPLE} from '../../styles/colors';
+import Loading from 'scenes/loading';
+import {Card, CircleContainer, Container} from './Styles';
+import {boxShadow} from '../../styles/mixins';
 
-export default () => {
+export default ({route}) => {
+  const {signin, signup} = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
+  const signinColors = [SECONDARY_PURPLE, PRIMARY_PURPLE];
+  const signupColors = [SECONDARY_GREEN, PRIMARY_GREEN];
+  const {option} = route.params;
+
+  const loadAction = async (callBack, parameters) => {
+    setLoading(true);
+    await callBack(parameters);
+    setLoading(false);
+  };
+
   return (
-    <View style={styles.background}>
-      <View style={styles.card}>
-        <Signin2 />
-      </View>
-    </View>
+    <Container>
+      {/* {loading && <Loading />} */}
+      <CircleContainer start={{x: 0.5, y: 0.2}} colors={option === 'signin' ? signinColors : signupColors} />
+      <Card>
+        {option === 'signin' ? (
+          <Signin signin={signin} action={loadAction} />
+        ) : (
+          <Signup signup={signup} action={loadAction} />
+        )}
+      </Card>
+    </Container>
   );
 };
-
-const styles = StyleSheet.create({
-  background: {
-    alignItems: 'center',
-    // backgroundColor: GRAY_LIGHT_1,
-    flex: 1,
-    justifyContent: 'center',
-  },
-  card: {
-    backgroundColor: '#fff',
-    borderRadius: 10,
-    elevation: 5,
-    width: '95%',
-  },
-});
