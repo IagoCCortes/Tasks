@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {scaleSize} from 'styles/mixins';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {GRAY_LIGHT_1, PRIMARY_DARK, PRIMARY_MEDIUM} from 'styles/colors';
+import {GRAY_LIGHT_1, PRIMARY_PURPLE, SECONDARY_PURPLE} from 'styles/colors';
 import {FlatList} from 'react-native-gesture-handler';
 Icon.loadFont();
 
@@ -26,7 +26,7 @@ const ListTypes = ({types, select}) => {
 
 const styles = StyleSheet.create({
   icon: {
-    color: PRIMARY_MEDIUM,
+    color: SECONDARY_PURPLE,
     fontSize: 25,
   },
   iconView: {
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: GRAY_LIGHT_1,
     borderWidth: 1,
-    borderColor: PRIMARY_DARK,
+    borderColor: PRIMARY_PURPLE,
     flexDirection: 'row',
     minHeight: scaleSize(80),
     justifyContent: 'space-between',

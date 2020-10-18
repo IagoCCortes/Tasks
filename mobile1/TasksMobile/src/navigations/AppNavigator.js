@@ -6,7 +6,8 @@ import Profile from 'scenes/Profile';
 import {createStackNavigator} from '@react-navigation/stack';
 import TaskDetail from 'scenes/TaskDetail';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {PRIMARY_DARK, GRAY_LIGHT_1, GRAY_MEDIUM_1} from 'styles/colors';
+import {PRIMARY_PURPLE, GRAY_LIGHT_1, GRAY_MEDIUM_1} from 'styles/colors';
+import Home from '../scenes/home';
 Icon.loadFont();
 
 const Tab = createBottomTabNavigator();
@@ -41,9 +42,10 @@ const AppNavigator = () => {
       tabBarOptions={{
         activeTintColor: GRAY_LIGHT_1,
         inactiveTintColor: GRAY_MEDIUM_1,
-        tabStyle: {backgroundColor: PRIMARY_DARK, zIndex: 2},
+        tabStyle: {backgroundColor: PRIMARY_PURPLE, zIndex: 2},
       }}>
-      <Tab.Screen name="Tasks" component={TasksNavigator} />
+      <Tab.Screen name="Home" component={Home} />
+      {/* <Tab.Screen name="Tasks" component={TasksNavigator} /> */}
       <Tab.Screen name="New" component={NewTask} />
       <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>

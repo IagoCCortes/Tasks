@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, StyleSheet, Text} from 'react-native';
-import {GRAY_LIGHT_1, PRIMARY_DARK, GRAY_LIGHT_4} from 'styles/colors';
+import {GRAY_LIGHT_1, PRIMARY_PURPLE, GRAY_LIGHT_4} from 'styles/colors';
 import {Switch} from 'react-native-gesture-handler';
 
 const FilterSwitch = ({choices, value, toggleSwitch}) => {
@@ -8,7 +8,7 @@ const FilterSwitch = ({choices, value, toggleSwitch}) => {
     <View style={styles.switchOptions}>
       <Text style={styles.textStatus}>{choices[0]}</Text>
       <Switch
-        trackColor={{false: GRAY_LIGHT_4, true: PRIMARY_DARK}}
+        trackColor={{false: GRAY_LIGHT_4, true: PRIMARY_PURPLE}}
         thumbColor={GRAY_LIGHT_1}
         ios_backgroundColor={GRAY_LIGHT_1}
         onValueChange={() => toggleSwitch('status')}

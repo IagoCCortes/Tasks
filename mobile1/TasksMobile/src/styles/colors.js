@@ -2,8 +2,9 @@ export const PRIMARY_PURPLE = '#9554fd';
 export const SECONDARY_PURPLE = '#b454fd';
 export const PRIMARY_GREEN = '#1d525a';
 export const SECONDARY_GREEN = '#338c7f';
+export const PRIMARY_PINK = '#ffd9e4';
+export const PRIMARY_BLUE = '#aec6cf';
 
-export const PRIMARY_DARK = '#481120';
 export const QUATERNARY = '#732C02';
 export const QUINARY = '#733B2F';
 export const WHITE = '#FFF';

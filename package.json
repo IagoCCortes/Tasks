@@ -1,0 +1,9 @@
+{
+  "name": "tasks-conatainer",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "server": "cd ./server && yarn run start",
+    "mobile": "cd ./mobile1/TasksMobile && yarn run android"
+  }
+}

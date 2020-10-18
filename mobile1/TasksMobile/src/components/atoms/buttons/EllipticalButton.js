@@ -23,7 +23,7 @@ export default ({
 
 const Button = styled(TouchableOpacity)`
   align-items: center;
-  border-radius: 100;
+  border-radius: 100px;
   border-width: 2;
   display: flex;
   height: ${scaleSize(50)};

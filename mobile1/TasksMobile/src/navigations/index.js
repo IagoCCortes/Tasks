@@ -10,7 +10,9 @@ function App() {
   const {state} = useContext(AuthContext);
 
   return (
-    <NavigationContainer ref={navigationRef}>{state?.token ? <AppNavigator /> : <AuthNavigator />}</NavigationContainer>
+    <NavigationContainer ref={navigationRef}>
+      {state?.token !== null && !state?.animating ? <AppNavigator /> : <AuthNavigator />}
+    </NavigationContainer>
   );
 }
 

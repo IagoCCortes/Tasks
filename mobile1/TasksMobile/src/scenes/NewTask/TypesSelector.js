@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, View, Dimensions} from 'react-native';
-import {PRIMARY_MEDIUM} from 'styles/colors';
+import {PRIMARY_PURPLE} from 'styles/colors';
 import {scaleSize} from 'styles/mixins';
 import TypeChoice from 'components/molecules/TypeChoice';
 
@@ -48,7 +48,7 @@ let ScreenHeight = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    backgroundColor: PRIMARY_MEDIUM,
+    backgroundColor: PRIMARY_PURPLE,
     height: ScreenHeight - 25,
     justifyContent: 'space-between',
     paddingBottom: 120,

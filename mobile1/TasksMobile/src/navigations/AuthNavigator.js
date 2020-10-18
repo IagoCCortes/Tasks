@@ -2,6 +2,7 @@ import React from 'react';
 import {CardStyleInterpolators, createStackNavigator} from '@react-navigation/stack';
 import AuthenticateScreen from '../scenes/authenticate/index';
 import Forms from '../scenes/authenticate/Forms';
+import {SECONDARY_PURPLE, WHITE} from '../styles/colors';
 
 const Stack = createStackNavigator();
 
@@ -21,6 +22,8 @@ const AuthNavigator = () => {
   return (
     <Stack.Navigator
       screenOptions={{
+        title: '',
+        headerTransparent: true,
         gestureEnabled: true,
         gestureDirection: 'horizontal',
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
@@ -28,6 +31,7 @@ const AuthNavigator = () => {
         //   open: config,
         //   close: config,
         // },
+        tintColor: WHITE,
       }}
       headerMode="float">
       <Stack.Screen name="Initial" component={AuthenticateScreen} options={{headerShown: false}} />

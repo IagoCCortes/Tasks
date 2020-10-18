@@ -16,7 +16,7 @@ export default ({bgColors, tColor = WHITE, text, callback}) => (
 
 const Gradient = styled(LinearGradient)`
   align-items: center;
-  border-radius: 5;
+  border-radius: 5px;
   display: flex;
   ${boxShadow()};
   height: ${scaleSize(50)};

@@ -2,7 +2,7 @@ import React from 'react';
 import {Text} from 'react-native-svg';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {Text as TextField, StyleSheet} from 'react-native';
-import {PRIMARY_LIGHT, GRAY_LIGHT_1} from 'styles/colors';
+import {PRIMARY_PURPLE, GRAY_LIGHT_1} from 'styles/colors';
 
 const SearchHeader = ({animateFilters, animateSearch, filter}) => {
   return (
@@ -14,7 +14,7 @@ const SearchHeader = ({animateFilters, animateSearch, filter}) => {
         <Icon
           name="filter-list"
           size={35}
-          style={{...styles.iconOption, color: filter ? PRIMARY_LIGHT : GRAY_LIGHT_1}}
+          style={{...styles.iconOption, color: filter ? PRIMARY_PURPLE : GRAY_LIGHT_1}}
         />
       </Text>
       <TextField style={styles.headerText}>Tasks</TextField>

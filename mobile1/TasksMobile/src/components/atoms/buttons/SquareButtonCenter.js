@@ -13,7 +13,7 @@ export default ({bgColor, tColor = WHITE, text, callback}) => (
 
 const Button = styled(TouchableOpacity)`
   align-items: center;
-  border-radius: 5;
+  border-radius: 5px;
   display: flex;
   ${boxShadow()};
   height: ${scaleSize(50)};

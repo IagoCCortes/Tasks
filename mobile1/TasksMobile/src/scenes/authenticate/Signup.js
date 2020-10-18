@@ -27,8 +27,8 @@ export default ({signup, action}) => {
       {({errors, handleChange, handleBlur, handleSubmit, touched, values}) => (
         <FormContainer>
           <LogoContainer>
-            <MiniLogo source={require('assets/images/logoPURPLE.png')} />
-            {/* <MiniLogo source={require('assets/images/logoGREEN.png')} /> */}
+            {/* <MiniLogo source={require('assets/images/logoPURPLE.png')} /> */}
+            <MiniLogo source={require('assets/images/logoGREEN.png')} />
           </LogoContainer>
           <SquareTextField
             errors={errors}

@@ -1,6 +1,7 @@
 import {Dimensions, PixelRatio} from 'react-native';
 import {BLACK} from './colors';
-const WINDOW_WIDTH = Dimensions.get('window').width;
+export const WINDOW_WIDTH = Dimensions.get('window').width;
+export const WINDOW_HEIGHT = Dimensions.get('window').height;
 const guidelineBaseWidth = 375;
 
 export const scaleSize = (size) => (WINDOW_WIDTH / guidelineBaseWidth) * size;
@@ -10,10 +11,10 @@ export const scaleFont = (size) => size * PixelRatio.getFontScale();
 function dimensions(top, right = top, bottom = top, left = right, property) {
   let styles = {};
 
-  styles[`${property}Top`] = top;
-  styles[`${property}Right`] = right;
-  styles[`${property}Bottom`] = bottom;
-  styles[`${property}Left`] = left;
+  styles[`${property}Top`] = scaleSize(top);
+  styles[`${property}Right`] = scaleSize(right);
+  styles[`${property}Bottom`] = scaleSize(bottom);
+  styles[`${property}Left`] = scaleSize(left);
 
   return styles;
 }

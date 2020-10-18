@@ -16,14 +16,14 @@ export const ButtonsContainer = styled.View`
 
 export const Card = styled.View`
   background-color: ${WHITE};
-  border-radius: 10;
+  border-radius: 10px;
   ${boxShadow()};
   width: 95%;
 `;
 
 export const CircleContainer = styled(LinearGradient)`
-  border-bottom-left-radius: 80;
-  border-bottom-right-radius: 80;
+  border-bottom-left-radius: 80px;
+  border-bottom-right-radius: 80px;
   height: 50%;
   position: absolute;
   top: 0;
@@ -49,7 +49,6 @@ export const ImageContainer = styled.View`
   align-items: center;
   height: 75%;
   justify-content: center;
-  position: relative;
   width: 100%;
 `;
 
@@ -62,17 +61,17 @@ export const Logo = styled.Image`
 export const LogoContainer = styled.View`
   align-items: center;
   background-color: ${WHITE};
-  border-radius: 20;
+  border-radius: 20px;
   ${boxShadow()};
   height: ${scaleSize(110)};
   justify-content: center;
   position: absolute;
-  top: ${scaleSize(-75)};
+  top: ${scaleSize(-65)};
   width: ${scaleSize(110)};
 `;
 
 export const MiniLogo = styled.Image`
-  height: ${scaleSize(100)};
+  height: 100;
   position: absolute;
   resize-mode: contain;
 `;

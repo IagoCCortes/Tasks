@@ -1,18 +1,42 @@
-import React from 'react';
-import {Image, StyleSheet} from 'react-native';
+import React, {useEffect, useRef} from 'react';
+import LottieView from 'lottie-react-native';
+import {Animated, StyleSheet} from 'react-native';
 
-const Loading = () => <Image style={styles.image} source={require('assets/images/loading.jpg')} />;
+const AlternativeLoading = ({active}) => {
+  const animation = useRef(null);
+  const fadeIn = useRef(new Animated.Value(0)).current;
 
-export default Loading;
+  useEffect(() => {
+    if (active) {
+      Animated.timing(fadeIn, {toValue: 1, duration: 500, useNativeDriver: true}).start();
+      animation.current.play();
+    } else {
+      Animated.timing(fadeIn, {toValue: 0}).start();
+
+      animation.loop = false;
+    }
+  }, [active, fadeIn]);
+
+  return (
+    <Animated.View style={{...styles.container, opacity: fadeIn}}>
+      <LottieView ref={animation} style={styles.container} source={require('../../assets/lottie-loading.json')} />
+    </Animated.View>
+  );
+};
+
+export default AlternativeLoading;
 
 const styles = StyleSheet.create({
-  image: {
-    flex: 1,
-    width: '100%',
+  container: {
+    alignItems: 'center',
+    backgroundColor: 'transparent',
+    elevation: 10,
     height: '100%',
+    justifyContent: 'center',
+    left: 0,
     position: 'absolute',
     top: 0,
-    left: 0,
-    zIndex: 9999,
+    width: '100%',
+    zIndex: 2,
   },
 });

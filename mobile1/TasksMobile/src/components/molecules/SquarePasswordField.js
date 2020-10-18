@@ -56,7 +56,7 @@ const InputField = styled.View`
 
 const Input = styled(TextInput)`
   background-color: ${GRAY_LIGHT_2};
-  border-radius: 5;
+  border-radius: 5px;
   color: ${BLACK};
   font-size: ${scaleFont(20)};
 `;

@@ -5,11 +5,13 @@ import API from 'services/API';
 const authReducer = (state, action) => {
   switch (action.type) {
     case 'add_error':
-      return {...state, errorMessage: action.payload};
+      return {...state, errorMessage: action.payload, animating: true};
     case 'signin':
-      return {errorMessage: '', token: action.payload};
+      return {errorMessage: '', token: action.payload, animating: true};
     case 'clear_error_message':
       return {...state, errorMessage: ''};
+    case 'clear_animation':
+      return {...state, animating: false};
     case 'signout':
       return {token: null, errorMessage: ''};
     default:
@@ -24,6 +26,10 @@ const tryLocalSignin = (dispatch) => async () => {
   } else {
     // navigate('Signup');
   }
+};
+
+const clearAnimation = (dispatch) => () => {
+  dispatch({type: 'clear_animation'});
 };
 
 const clearErrorMessage = (dispatch) => () => {
@@ -63,6 +69,6 @@ const signout = (dispatch) => async () => {
 
 export const {Provider, Context} = createDataContext(
   authReducer,
-  {signin, signout, signup, clearErrorMessage, tryLocalSignin},
-  {token: null, errorMessage: ''},
+  {signin, signout, signup, clearAnimation, clearErrorMessage, tryLocalSignin},
+  {token: null, errorMessage: '', animating: false},
 );

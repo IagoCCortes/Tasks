@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {PRIMARY_MEDIUM, WHITE} from 'styles/colors';
+import {PRIMARY_PURPLE, WHITE} from 'styles/colors';
 Icon.loadFont();
 
 const ListItem = ({data, navigation}) => {

@@ -1,6 +1,6 @@
 import React, {useState, useContext, useEffect} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {GRAY_LIGHT_1, PRIMARY_DARK} from 'styles/colors';
+import {GRAY_LIGHT_1, PRIMARY_PURPLE} from 'styles/colors';
 import * as Yup from 'yup';
 import {Formik} from 'formik';
 import {margin} from 'styles/mixins';
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
   header: {
     alignItems: 'center',
     alignSelf: 'stretch',
-    backgroundColor: PRIMARY_DARK,
+    backgroundColor: PRIMARY_PURPLE,
     flexDirection: 'row',
     height: 70,
     justifyContent: 'center',
