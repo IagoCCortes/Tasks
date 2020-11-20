@@ -52,13 +52,14 @@ export default class TaskService {
 
       if (taskFilterDTO.types && taskFilterDTO.types.length > 0)
         taskRecordsQuery = taskRecordsQuery.find({
-          types: { $in: taskFilterDTO.types },
+          'types._id': { $in: taskFilterDTO.types },
         });
 
       const taskRecords = taskRecordsQuery
         .skip(taskFilterDTO.limit * (taskFilterDTO.page - 1))
         .limit(taskFilterDTO.limit)
         .sort({ [field]: value === 'asc' ? 1 : -1 })
+        .populate('types')
         .lean<ITask>()
         .exec();
 

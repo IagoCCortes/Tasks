@@ -3,7 +3,11 @@ export const SECONDARY_PURPLE = '#b454fd';
 export const PRIMARY_GREEN = '#1d525a';
 export const SECONDARY_GREEN = '#338c7f';
 export const PRIMARY_PINK = '#ffd9e4';
+export const SECONDARY_PINK = '#f7b0bb';
 export const PRIMARY_BLUE = '#aec6cf';
+export const SECONDARY_BLUE = '#4e90a9';
+export const PRIMARY_RED = '#ff6961';
+export const SECONDARY_RED = '#ff392e';
 
 export const QUATERNARY = '#732C02';
 export const QUINARY = '#733B2F';

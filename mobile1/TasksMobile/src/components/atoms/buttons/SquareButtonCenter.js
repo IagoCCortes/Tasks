@@ -5,8 +5,8 @@ import {WHITE} from 'styles/colors';
 import styled from 'styled-components';
 import {boxShadow} from '../../../styles/mixins';
 
-export default ({bgColor, tColor = WHITE, text, callback}) => (
-  <Button onPress={() => callback()} style={{backgroundColor: bgColor}}>
+export default ({bgColor, tColor = WHITE, text, callback, width = scaleSize(300)}) => (
+  <Button onPress={() => callback()} style={{backgroundColor: bgColor, width}}>
     <ButtonText style={{color: tColor}}>{text}</ButtonText>
   </Button>
 );
@@ -18,7 +18,6 @@ const Button = styled(TouchableOpacity)`
   ${boxShadow()};
   height: ${scaleSize(50)};
   justify-content: center;
-  width: ${scaleSize(300)};
 `;
 
 const ButtonText = styled.Text`

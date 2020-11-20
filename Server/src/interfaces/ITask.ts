@@ -1,4 +1,5 @@
 import { Types } from 'mongoose';
+import { IFrequency } from './IFrequency';
 
 export interface ITask {
   _id: string;
@@ -14,7 +15,7 @@ export interface ITask {
   timesHappened: number;
   owner: Types.ObjectId;
   frequency: Types.ObjectId;
-  types: [Types.ObjectId];
+  types: [IFrequency];
 }
 
 export interface ITaskCreateDTO {

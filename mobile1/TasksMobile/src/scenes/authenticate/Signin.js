@@ -1,6 +1,5 @@
 import React from 'react';
-import {Image, StyleSheet, View} from 'react-native';
-import {GRAY_DARK} from 'styles/colors';
+import {StyleSheet, View} from 'react-native';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import SquarePasswordField from '../../components/molecules/SquarePasswordField';
