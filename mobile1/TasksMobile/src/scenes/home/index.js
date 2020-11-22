@@ -2,12 +2,12 @@ import React, {useContext, useEffect, useState} from 'react';
 import {StyleSheet, Text} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {Context as TaskContext} from 'services/context/TaskContext';
-import SquareButtonCenter from '../../components/atoms/buttons/SquareButtonCenter';
+import SquareButtonCenter from 'components/atoms/buttons/SquareButtonCenter';
 import {PRIMARY_PURPLE} from 'styles/colors';
 import {scaleSize, WINDOW_WIDTH} from 'styles/mixins';
 import AlternativeLoading from '../loading';
 import TaskCard from './TaskCard';
-import {Container, Flex} from '../../components/styledComponents';
+import {Container, Flex} from 'components/styledComponents';
 
 export default ({navigation}) => {
   const {getFiltered, state: taskState} = useContext(TaskContext);

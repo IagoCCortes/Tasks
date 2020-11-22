@@ -1,7 +1,8 @@
 import React from 'react';
 import SquareButtonRight from '../../components/atoms/buttons/SquareButtonRight';
+import {Container} from 'components/styledComponents';
 import {GRAY_DARK_1, PRIMARY_GREEN, PRIMARY_PURPLE, SECONDARY_GREEN, SECONDARY_PURPLE} from '../../styles/colors';
-import {BackGroundImage, ButtonsContainer, Container, ImageContainer, Logo} from './Styles';
+import {BackGroundImage, ButtonsContainer, ImageContainer, Logo} from './Styles';
 
 const AuthenticateScreen = ({navigation}) => (
   <Container>

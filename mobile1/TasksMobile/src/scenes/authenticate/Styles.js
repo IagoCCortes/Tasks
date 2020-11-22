@@ -30,12 +30,6 @@ export const CircleContainer = styled(LinearGradient)`
   width: 115%;
 `;
 
-export const Container = styled.View`
-  align-items: center;
-  flex: 1;
-  justify-content: center;
-`;
-
 export const FormContainer = styled.View`
   align-items: center;
   justify-content: center;

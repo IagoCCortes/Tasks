@@ -31,6 +31,7 @@ const AuthNavigator = () => {
         //   open: config,
         //   close: config,
         // },
+        headerTintColor: WHITE,
         tintColor: WHITE,
       }}
       headerMode="float">

@@ -3,12 +3,12 @@ import Signin from './Signin';
 import {Context as AuthContext} from 'services/context/AuthContext';
 import Signup from './Signup';
 import * as colors from '../../styles/colors';
-import Loading from 'scenes/loading';
-import {Card, CircleContainer, Container} from './Styles';
+import {Card, CircleContainer} from './Styles';
 import {StatusBar} from 'react-native';
 import Success from '../../components/molecules/lotties/Success';
 import AlternativeLoading from '../loading';
 import Fail from '../../components/molecules/lotties/Fail';
+import {Container} from 'components/styledComponents';
 
 export default ({route}) => {
   const {signin, signup, clearAnimation, state} = useContext(AuthContext);
