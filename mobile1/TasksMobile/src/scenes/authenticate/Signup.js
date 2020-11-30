@@ -1,8 +1,8 @@
 import React from 'react';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
-import SquareTextField from '../../components/molecules/SquareTextField';
-import SquarePasswordField from '../../components/molecules/SquarePasswordField';
+import TextField from '../../components/molecules/inputs/TextField';
+import PasswordField from '../../components/molecules/inputs/PasswordField';
 import SquareButtonCenter from '../../components/atoms/buttons/SquareButtonCenter';
 import {StyleSheet, View} from 'react-native';
 import {scaleSize} from '../../styles/mixins';
@@ -30,7 +30,7 @@ export default ({signup, action}) => {
             {/* <MiniLogo source={require('assets/images/logoPURPLE.png')} /> */}
             <MiniLogo source={require('assets/images/logoGREEN.png')} />
           </LogoContainer>
-          <SquareTextField
+          <TextField
             errors={errors}
             handleBlur={handleBlur}
             handleChange={handleChange}
@@ -39,7 +39,7 @@ export default ({signup, action}) => {
             name="Username"
             fieldName="name"
           />
-          <SquareTextField
+          <TextField
             errors={errors}
             handleBlur={handleBlur}
             handleChange={handleChange}
@@ -48,7 +48,7 @@ export default ({signup, action}) => {
             name="E-mail"
             fieldName="email"
           />
-          <SquarePasswordField
+          <PasswordField
             errors={errors}
             handleBlur={handleBlur}
             handleChange={handleChange}
@@ -57,7 +57,7 @@ export default ({signup, action}) => {
             name="Password"
             fieldName="password"
           />
-          <SquarePasswordField
+          <PasswordField
             errors={errors}
             handleBlur={handleBlur}
             handleChange={handleChange}

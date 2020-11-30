@@ -1,6 +1,7 @@
 import React, {useState, useContext, useEffect} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {GRAY_LIGHT_1, PRIMARY_PURPLE} from 'styles/colors';
+import {StatusBar, StyleSheet, View} from 'react-native';
+import * as colors from 'styles/colors';
+import * as mixins from 'styles/mixins';
 import * as Yup from 'yup';
 import {Formik} from 'formik';
 import {margin} from 'styles/mixins';
@@ -9,6 +10,8 @@ import TypesSelector from './TypesSelector';
 import {Context as CommonDataContext} from 'services/context/CommonDataContext';
 import {Context as TaskContext} from 'services/context/TaskContext';
 import Fields from './Fields';
+import SquareButtonCenter from '../../components/atoms/buttons/SquareButtonCenter';
+import {Card, CircleContainer, Container} from '../../components/styledComponents';
 
 const NewTask = ({}) => {
   const {getFrequencies, getTypes, state: commonDataState} = useContext(CommonDataContext);
@@ -44,11 +47,9 @@ const NewTask = ({}) => {
   };
 
   return (
-    <>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>New task</Text>
-      </View>
-      <View style={styles.container}>
+    <Container>
+      <CircleContainer start={{x: 0.5, y: 0.2}} colors={[colors.PRIMARY_RED, colors.SECONDARY_RED]} />
+      <Card>
         <Formik
           initialValues={{
             name: '',
@@ -62,15 +63,16 @@ const NewTask = ({}) => {
           validationSchema={validationSchema}>
           {({errors, handleChange, handleBlur, handleSubmit, touched, values, setFieldValue}) => (
             <>
-              {commonDataState?.types && (
+              {/* {commonDataState?.types && (
                 <TypesSelector
                   setSelectedTypes={setSelectedTypes}
                   selectedTypes={selectedTypes}
                   setFieldValue={setFieldValue}
                   values={commonDataState?.types}
                 />
-              )}
-              <View style={styles.form}>
+              )} */}
+              <>
+                <View style={{height: mixins.scaleSize(30)}} />
                 <Fields
                   errors={errors}
                   handleChange={handleChange}
@@ -83,18 +85,14 @@ const NewTask = ({}) => {
                 />
                 {/* <Text>{JSON.stringify(errors)}</Text>
                 <Text>{JSON.stringify(touched)}</Text> */}
-                <EllipticalButton
-                  text={'Create'}
-                  // disabled={!isValid}
-                  callback={handleSubmit}
-                  margin={() => margin(15, 0, 15, 0)}
-                />
-              </View>
+                <SquareButtonCenter text={'Create'} bgColor={colors.PRIMARY_RED} callback={handleSubmit} />
+                <View style={{height: mixins.scaleSize(30)}} />
+              </>
             </>
           )}
         </Formik>
-      </View>
-    </>
+      </Card>
+    </Container>
   );
 };
 
@@ -105,23 +103,24 @@ const styles = StyleSheet.create({
   },
   form: {
     alignItems: 'center',
-    backgroundColor: GRAY_LIGHT_1,
+    backgroundColor: colors.GRAY_LIGHT_1,
     flex: 1,
     height: '100%',
     justifyContent: 'space-between',
+    marginTop: mixins.scaleSize(49 + StatusBar.currentHeight),
     paddingBottom: 70,
   },
   header: {
     alignItems: 'center',
     alignSelf: 'stretch',
-    backgroundColor: PRIMARY_PURPLE,
+    backgroundColor: colors.PRIMARY_PURPLE,
     flexDirection: 'row',
     height: 70,
     justifyContent: 'center',
   },
   headerText: {
     alignSelf: 'center',
-    color: GRAY_LIGHT_1,
+    color: colors.GRAY_LIGHT_1,
     fontSize: 23,
   },
 });

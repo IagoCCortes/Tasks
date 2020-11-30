@@ -3,30 +3,35 @@ import Signin from './Signin';
 import {Context as AuthContext} from 'services/context/AuthContext';
 import Signup from './Signup';
 import * as colors from '../../styles/colors';
-import {Card, CircleContainer} from './Styles';
 import {StatusBar} from 'react-native';
+import Loading from '../../components/organisms/Loading';
+import {Card, CircleContainer, Container} from 'components/styledComponents';
 import Success from '../../components/molecules/lotties/Success';
-import AlternativeLoading from '../loading';
 import Fail from '../../components/molecules/lotties/Fail';
-import {Container} from 'components/styledComponents';
 
 export default ({route}) => {
-  const {signin, signup, clearAnimation, state} = useContext(AuthContext);
+  const {signin, signup} = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
+  const [animating, setAnimating] = useState({animation: '', action: null});
   const signinColors = [colors.SECONDARY_PURPLE, colors.PRIMARY_PURPLE];
   const signupColors = [colors.SECONDARY_GREEN, colors.PRIMARY_GREEN];
   const {option} = route.params;
 
   const loadAction = async (callBack, parameters) => {
     setLoading(true);
-    await callBack(parameters);
+    const result = await callBack(parameters);
+    const action = () => {
+      setAnimating({animation: '', action: null});
+      result && result();
+    };
+    setAnimating({animation: typeof result === 'function' ? 'success' : 'fail', action});
     setLoading(false);
   };
 
   return (
     <>
       <Container>
-        {loading && <AlternativeLoading active={true} />}
+        {loading && <Loading active={true} />}
         <CircleContainer start={{x: 0.5, y: 0.2}} colors={option === 'signin' ? signinColors : signupColors} />
         <Card>
           {option === 'signin' ? (
@@ -37,8 +42,8 @@ export default ({route}) => {
         </Card>
         <StatusBar backgroundColor={option === 'signin' ? colors.SECONDARY_PURPLE : colors.SECONDARY_GREEN} />
       </Container>
-      {state?.animating && state?.errorMessage === '' && <Success onFinish={clearAnimation} />}
-      {state?.animating && state?.errorMessage !== '' && <Fail onFinish={clearAnimation} />}
+      {animating.animation === 'success' && <Success onFinish={animating.action} />}
+      {animating.animation === 'fail' && <Fail onFinish={animating.action} />}
     </>
   );
 };

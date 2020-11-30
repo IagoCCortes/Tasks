@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {Animated, StyleSheet, Text, View} from 'react-native';
 import {GRAY_DARK, SUCCESS, GRAY_MEDIUM_2} from 'styles/colors';
-import {Picker} from 'native-base';
 import useAnimatedHeader from 'hooks/useAnimatedHeader';
+import {Picker} from '@react-native-picker/picker';
 
 const FormPicker = ({errors, setFieldValue, touched, values, name, fieldName}) => {
   const [moveHeader, setMoveHeader] = useState(false);

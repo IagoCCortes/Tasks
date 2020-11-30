@@ -2,7 +2,7 @@ import React, {useEffect, useRef} from 'react';
 import LottieView from 'lottie-react-native';
 import {Animated, StyleSheet} from 'react-native';
 
-const AlternativeLoading = ({active}) => {
+export default ({active}) => {
   const animation = useRef(null);
   const fadeIn = useRef(new Animated.Value(0)).current;
 
@@ -23,8 +23,6 @@ const AlternativeLoading = ({active}) => {
     </Animated.View>
   );
 };
-
-export default AlternativeLoading;
 
 const styles = StyleSheet.create({
   container: {

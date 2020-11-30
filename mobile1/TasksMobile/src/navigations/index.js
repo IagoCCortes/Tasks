@@ -8,12 +8,12 @@ import AuthNavigator from './AuthNavigator';
 import Message from '../components/molecules/Message';
 
 function App() {
-  const {state} = useContext(AuthContext);
+  const {state: authState} = useContext(AuthContext);
 
   return (
     <NavigationContainer ref={navigationRef}>
       <Message />
-      {state?.token !== null && !state?.animating ? <AppNavigator /> : <AuthNavigator />}
+      {authState?.token ? <AppNavigator /> : <AuthNavigator />}
     </NavigationContainer>
   );
 }

@@ -1,10 +1,10 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {ImageBackground, StyleSheet, View} from 'react-native';
 import * as colors from 'styles/colors';
 import * as mixins from 'styles/mixins';
-import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
 import resolveCardStyle from '../../utils/resolveCardStyle';
+import {StyledText} from '../../components/styledComponents';
 
 export default ({task}) => {
   const types = task.types.map((type) => type.name);
@@ -12,16 +12,17 @@ export default ({task}) => {
 
   return (
     <>
-      <LinearGradient
-        start={{x: 0.0, y: 0.1}}
-        end={{x: 0.8, y: 0.8}}
-        colors={cardStyle.colors}
+      <ImageBackground
+        source={require(`assets/images/background5.jpg`)}
+        imageStyle={{borderRadius: 15}}
         style={styles.container}>
         <View style={styles.iconContainer}>
           <Icon name={cardStyle.icon} size={mixins.scaleSize(75)} color={colors.WHITE} />
         </View>
-        <Text style={styles.title}>{task.name}</Text>
-      </LinearGradient>
+        <StyledText bold fontSize={20} color={colors.WHITE}>
+          {task.name}
+        </StyledText>
+      </ImageBackground>
     </>
   );
 };
@@ -38,18 +39,11 @@ const styles = StyleSheet.create({
     width: 0.45 * mixins.WINDOW_WIDTH,
   },
   iconContainer: {
-    justifyContent: 'flex-start',
     width: '100%',
   },
   section: {
     alignItems: 'center',
     flex: 1,
     justifyContent: 'center',
-  },
-  title: {
-    alignSelf: 'flex-start',
-    fontSize: mixins.scaleFont(20),
-    fontWeight: 'bold',
-    textAlign: 'left',
   },
 });

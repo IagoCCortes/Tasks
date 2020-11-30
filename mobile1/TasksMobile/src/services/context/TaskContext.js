@@ -4,43 +4,56 @@ import removeEmptyProperties from 'utils/removeEmptyProperties';
 
 const taskReducer = (state, action) => {
   switch (action.type) {
-    case 'add_error':
-      return {...state, errorMessage: action.payload};
-    case 'create':
-      return {...state, errorMessage: ''};
-    case 'get_filtered':
-      return {...state, errorMessage: '', tasks: action.payload};
+    case 'set_loading':
+      return {...state, loading: action.payload};
     default:
       return state;
   }
 };
 
 const create = (dispatch) => async (data) => {
+  dispatch({
+    type: 'set_loading',
+    payload: true,
+  });
+  let response = false;
   try {
     await API.post('/task/', removeEmptyProperties(data));
-    dispatch({type: 'create'});
+    response = true;
   } catch (err) {
-    dispatch({
-      type: 'add_error',
-      payload: 'Something went wrong when creating task',
-    });
+    // dispatch({
+    //   type: 'add_error',
+    //   payload: 'Something went wrong when creating task',
+    // });
+    console.log(err);
   }
+  dispatch({
+    type: 'set_loading',
+    payload: false,
+  });
+  return response;
 };
 
 const getFiltered = (dispatch) => async (data) => {
+  dispatch({
+    type: 'set_loading',
+    payload: true,
+  });
+  let response = [];
   try {
-    const response = await API.get('/task/filter');
-    dispatch({type: 'get_filtered', payload: response.data});
+    response = await API.get('/task/filter');
   } catch (err) {
-    dispatch({
-      type: 'add_error',
-      payload: 'Something went wrong when getting your tasks',
-    });
+    // dispatch({
+    //   type: 'add_error',
+    //   payload: 'Something went wrong when getting your tasks',
+    // });
+    console.log(err);
   }
+  dispatch({
+    type: 'set_loading',
+    payload: false,
+  });
+  return response;
 };
 
-export const {Provider, Context} = createDataContext(
-  taskReducer,
-  {create, getFiltered},
-  {errorMessage: '', tasks: undefined},
-);
+export const {Provider, Context} = createDataContext(taskReducer, {create, getFiltered}, {loading: true});

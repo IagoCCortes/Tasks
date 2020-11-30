@@ -14,6 +14,28 @@ export const ButtonsContainer = styled.View`
   justify-content: space-around;
 `;
 
+export const Card = styled.View`
+  background-color: ${WHITE};
+  border-radius: 10px;
+  ${boxShadow()};
+  width: 95%;
+`;
+
+export const CircleContainer = styled(LinearGradient)`
+  border-bottom-left-radius: 80px;
+  border-bottom-right-radius: 80px;
+  height: 50%;
+  position: absolute;
+  top: 0;
+  width: 115%;
+`;
+
+export const Container = styled.View`
+  align-items: center;
+  flex: 1;
+  justify-content: center;
+`;
+
 export const FormContainer = styled.View`
   align-items: center;
   justify-content: center;

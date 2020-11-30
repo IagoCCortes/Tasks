@@ -4,16 +4,10 @@ import API from 'services/API';
 
 const authReducer = (state, action) => {
   switch (action.type) {
-    case 'add_error':
-      return {...state, errorMessage: action.payload, animating: true};
     case 'signin':
-      return {errorMessage: '', token: action.payload, animating: true};
-    case 'clear_error_message':
-      return {...state, errorMessage: ''};
-    case 'clear_animation':
-      return {...state, animating: false};
+      return {token: action.payload};
     case 'signout':
-      return {token: null, errorMessage: ''};
+      return {token: null};
     default:
       return state;
   }
@@ -28,37 +22,24 @@ const tryLocalSignin = (dispatch) => async () => {
   }
 };
 
-const clearAnimation = (dispatch) => () => {
-  dispatch({type: 'clear_animation'});
-};
-
-const clearErrorMessage = (dispatch) => () => {
-  dispatch({type: 'clear_error_message'});
-};
-
 const signup = (dispatch) => async ({name, email, password}) => {
   try {
     const response = await API.post('auth/signup', {name, email, password});
-    await AsyncStorage.setItem('token', response.data.token);
-    dispatch({type: 'signin', payload: response.data.token});
+    await AsyncStorage.setItem('token', response.token);
+    return () => dispatch({type: 'signin', payload: response.token});
   } catch (err) {
-    dispatch({
-      type: 'add_error',
-      payload: 'Something went wrong with sign up',
-    });
+    // addMessage('Something went wrong with sign up', 'alert');
   }
 };
 
 const signin = (dispatch) => async ({email, password}) => {
   try {
     const response = await API.post('/auth/signin', {email, password});
-    await AsyncStorage.setItem('token', response.data.token);
-    dispatch({type: 'signin', payload: response.data.token});
+    await AsyncStorage.setItem('token', response.token);
+    return () => dispatch({type: 'signin', payload: response.token});
   } catch (err) {
-    dispatch({
-      type: 'add_error',
-      payload: 'Something went wrong with sign in',
-    });
+    console.log(err);
+    // addMessage('Something went wrong with sign in', 'alert');
   }
 };
 
@@ -69,6 +50,6 @@ const signout = (dispatch) => async () => {
 
 export const {Provider, Context} = createDataContext(
   authReducer,
-  {signin, signout, signup, clearAnimation, clearErrorMessage, tryLocalSignin},
-  {token: null, errorMessage: '', animating: false},
+  {signin, signout, signup, tryLocalSignin},
+  {token: null},
 );

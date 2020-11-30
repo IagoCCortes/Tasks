@@ -17,27 +17,27 @@ http.interceptors.request.use(async (config) => {
   return config;
 });
 
-// http.interceptors.response.use(
-//   (response) => {
-//     if (response && response.data) {
-//       return response.data.data;
-//     }
+http.interceptors.response.use(
+  (response) => {
+    if (response && response.data) {
+      return response.data;
+    }
 
-//     return response;
-//   },
-//   (error) => {
-//     if (error.response) {
-//       const statusSemAcesso = [403, 401];
-//       const semAcesso = statusSemAcesso.indexOf(error.response.status) >= 0;
-//       if (semAcesso) return Promise.reject('Você não tem acesso');
-//       else {
-//         return Promise.reject(error.message);
-//       }
-//     } else {
-//       return Promise.reject(error.message);
-//     }
-//   },
-// );
+    return response;
+  },
+  // (error) => {
+  //   if (error.response) {
+  //     const statusSemAcesso = [403, 401];
+  //     const semAcesso = statusSemAcesso.indexOf(error.response.status) >= 0;
+  //     if (semAcesso) return Promise.reject('Você não tem acesso');
+  //     else {
+  //       return Promise.reject(error.message);
+  //     }
+  //   } else {
+  //     return Promise.reject(error.message);
+  //   }
+  // },
+);
 
 export class API {
   static post(resource, data) {

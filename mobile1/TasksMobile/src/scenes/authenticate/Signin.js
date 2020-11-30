@@ -2,8 +2,8 @@ import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
-import SquarePasswordField from '../../components/molecules/SquarePasswordField';
-import SquareTextField from '../../components/molecules/SquareTextField';
+import PasswordField from '../../components/molecules/inputs/PasswordField';
+import TextField from '../../components/molecules/inputs/TextField';
 import SquareButtonCenter from '../../components/atoms/buttons/SquareButtonCenter';
 import {PRIMARY_PURPLE} from '../../styles/colors';
 import {scaleSize} from '../../styles/mixins';
@@ -25,7 +25,7 @@ export default ({signin, action}) => {
           <LogoContainer>
             <MiniLogo source={require('assets/images/logoPURPLE.png')} />
           </LogoContainer>
-          <SquareTextField
+          <TextField
             errors={errors}
             handleBlur={handleBlur}
             handleChange={handleChange}
@@ -35,7 +35,7 @@ export default ({signin, action}) => {
             fieldName="email"
           />
           <View style={styles.space} />
-          <SquarePasswordField
+          <PasswordField
             errors={errors}
             handleBlur={handleBlur}
             handleChange={handleChange}

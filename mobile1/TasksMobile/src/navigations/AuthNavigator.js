@@ -35,7 +35,14 @@ const AuthNavigator = () => {
         tintColor: WHITE,
       }}
       headerMode="float">
-      <Stack.Screen name="Initial" component={AuthenticateScreen} options={{headerShown: false}} />
+      <Stack.Screen
+        name="Initial"
+        component={AuthenticateScreen}
+        options={{
+          headerShown: false,
+          // animationTypeForReplace: state.isSignout ? 'pop' : 'push',
+        }}
+      />
       <Stack.Screen name="Sign In" component={Forms} />
       <Stack.Screen name="Sign Up" component={Forms} />
     </Stack.Navigator>

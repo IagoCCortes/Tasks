@@ -19,7 +19,7 @@ export default (app: Router) => {
     celebrate({ query: schema.taskList }),
     async (req: Request, res: Response, next: NextFunction) => {
       const logger = Container.get('logger') as winston.Logger;
-      logger.debug(`Calling filtered tasks endpoint with query: ${req.query}`);
+      logger.debug(`Calling filtered tasks endpoint with query: ${JSON.stringify(req.query)}`);
       try {
         const taskServiceInstance = Container.get(TaskService);
         const tasks = await taskServiceInstance.GetAllByUserFiltered(

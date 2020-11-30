@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {GRAY_DARK, SUCCESS, GRAY_MEDIUM_2} from 'styles/colors';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import moment from 'moment';
+import {format} from 'date-fns';
 
 const FormDatePickerNative = ({errors, setFieldValue, touched, values, name, fieldName}) => {
   const [showHeader, setShowHeader] = useState(false);
@@ -28,7 +28,7 @@ const FormDatePickerNative = ({errors, setFieldValue, touched, values, name, fie
           />
         )}
         <Text style={{...styles.fieldHeader, color: showHeader ? GRAY_DARK : GRAY_MEDIUM_2}}>
-          {showHeader ? moment(values[fieldName]).format('DD/MM/YYYY') : 'Due date'}
+          {showHeader ? format(new Date(values[fieldName]), 'dd/MM/yyyy') : 'Due date'}
         </Text>
         <TouchableOpacity style={{height: '100%'}} onPress={() => setShow(true)} />
       </View>

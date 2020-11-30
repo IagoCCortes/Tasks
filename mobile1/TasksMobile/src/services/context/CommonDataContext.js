@@ -17,7 +17,7 @@ const commonDataReducer = (state, action) => {
 const getFrequencies = (dispatch) => async () => {
   try {
     const response = await API.get('frequency');
-    dispatch({type: 'getFrequencies', payload: response.data});
+    dispatch({type: 'getFrequencies', payload: response});
   } catch (err) {
     dispatch({
       type: 'add_error',
@@ -29,7 +29,7 @@ const getFrequencies = (dispatch) => async () => {
 const getTypes = (dispatch) => async () => {
   try {
     const response = await API.get('type');
-    dispatch({type: 'getTypes', payload: response.data});
+    dispatch({type: 'getTypes', payload: response});
   } catch (err) {
     dispatch({
       type: 'add_error',

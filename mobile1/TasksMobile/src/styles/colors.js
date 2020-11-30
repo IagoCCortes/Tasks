@@ -20,11 +20,11 @@ export const WARNING = '#ffae00';
 export const ALERT = '#cc4b37';
 
 // GRAYSCALE
-export const GRAY_LIGHT_1 = '#fafafa';
-export const GRAY_LIGHT_2 = '#dadada';
-export const GRAY_LIGHT_3 = '#bababa';
-export const GRAY_MEDIUM_1 = '#aaa';
-export const GRAY_MEDIUM_2 = '#7a7a7a';
-export const GRAY_MEDIUM_3 = '#5a5a5a';
-export const GRAY_DARK_1 = '#3a3a3a';
-export const GRAY_DARK_2 = '#1a1a1a';
+export const GRAY_LIGHT_1 = '#eee';
+export const GRAY_LIGHT_2 = '#ddd';
+export const GRAY_LIGHT_3 = '#bbb';
+export const GRAY_MEDIUM_1 = '#999';
+export const GRAY_MEDIUM_2 = '#777';
+export const GRAY_MEDIUM_3 = '#555';
+export const GRAY_DARK_1 = '#333';
+export const GRAY_DARK_2 = '#222';

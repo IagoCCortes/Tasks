@@ -1,13 +1,16 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
 import FormTextField from 'components/molecules/FormTextField';
-import FormTextArea from 'components/molecules/FormTextArea';
 import FormPicker from 'components/molecules/FormPicker';
-import FormDatePickerNative from 'components/molecules/FormDatePickerNative';
+import DatePicker from 'components/molecules/inputs/DatePicker';
+import TextField from 'components/molecules/inputs/TextField';
+import {WidthView} from '../../components/styledComponents';
+import TextArea from '../../components/molecules/inputs/TextArea';
+import {View} from 'react-native';
+import {scaleSize} from '../../styles/mixins';
 
 const Fields = ({errors, handleChange, handleBlur, touched, values, setFieldValue, selectedTypes, frequencies}) => (
-  <View style={styles.fields}>
-    <FormTextField
+  <WidthView>
+    <TextField
       errors={errors}
       handleBlur={handleBlur}
       handleChange={handleChange}
@@ -16,7 +19,8 @@ const Fields = ({errors, handleChange, handleBlur, touched, values, setFieldValu
       name="Name"
       fieldName="name"
     />
-    <FormTextArea
+    <View style={{height: scaleSize(20)}} />
+    <TextArea
       errors={errors}
       handleBlur={handleBlur}
       handleChange={handleChange}
@@ -24,20 +28,9 @@ const Fields = ({errors, handleChange, handleBlur, touched, values, setFieldValu
       values={values}
       name="Description"
       fieldName="description"
-      numberOfLines={3}
     />
     {!selectedTypes.includes('routine') && (
-      // <FormDatePicker
-      //   errors={errors}
-      //   handleBlur={handleBlur}
-      //   handleChange={handleChange}
-      //   touched={touched}
-      //   values={values}
-      //   name="Due date"
-      //   fieldName="dueDate"
-      //   setFieldValue={setFieldValue}
-      // />
-      <FormDatePickerNative
+      <DatePicker
         errors={errors}
         touched={touched}
         values={values}
@@ -78,13 +71,7 @@ const Fields = ({errors, handleChange, handleBlur, touched, values, setFieldValu
         fieldName="expectedTime"
       />
     )}
-  </View>
+  </WidthView>
 );
-
-const styles = StyleSheet.create({
-  fields: {
-    width: '85%',
-  },
-});
 
 export default Fields;
