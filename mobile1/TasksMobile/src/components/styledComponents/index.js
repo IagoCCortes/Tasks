@@ -8,6 +8,8 @@ export const Card = styled.View`
   background-color: ${colors.WHITE};
   border-radius: 10px;
   ${mixins.boxShadow()};
+  margin-bottom: ${(props) => mixins.scaleSize(props.marginBottom ? props.marginBottom : 0)};
+  margin-top: ${(props) => mixins.scaleSize(props.marginTop ? props.marginTop : 0)};
   width: 95%;
 `;
 
@@ -34,7 +36,6 @@ export const Flex = styled.View`
 export const Row = styled.View`
   flex-direction: row;
   justify-content: ${(props) => (props.justifyContent ? props.justifyContent : 'flex-start')};
-  width: ${mixins.WINDOW_WIDTH};
 `;
 
 export const StyledText = styled.Text`

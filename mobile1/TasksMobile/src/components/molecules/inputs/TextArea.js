@@ -1,9 +1,7 @@
 import React from 'react';
 import {StyleSheet, TextInput, View} from 'react-native';
-import styled from 'styled-components';
 import * as colors from 'styles/colors';
 import * as mixins from 'styles/mixins';
-import {scaleFont} from '../../../styles/mixins';
 import {StyledText} from '../../styledComponents';
 
 export default ({errors, handleChange, handleBlur, touched, values, name, fieldName, width = '85%'}) => {
@@ -17,9 +15,9 @@ export default ({errors, handleChange, handleBlur, touched, values, name, fieldN
       <StyledText color={anyErrors ? colors.PRIMARY_RED : colors.GRAY_MEDIUM_2} fontSize={mixins.scaleFont(15)}>
         {name}
       </StyledText>
-      <View style={styles.field}>
+      <View style={{...styles.field, ...(anyErrors ? styles.errorField : {})}}>
         <TextInput
-          style={{...styles.input, ...(anyErrors ? styles.errorField : {})}}
+          style={styles.input}
           multiline
           numberOfLines={3}
           onChangeText={handleChange(fieldName)}
@@ -28,27 +26,20 @@ export default ({errors, handleChange, handleBlur, touched, values, name, fieldN
           onBlur={blur}
           value={values[fieldName]}
         />
-        {anyErrors && (
-          <StyledText color={colors.PRIMARY_RED} fontSize={mixins.scaleFont(11)}>
-            {errors[fieldName]}
-          </StyledText>
-        )}
       </View>
+      {anyErrors && (
+        <StyledText color={colors.PRIMARY_RED} fontSize={mixins.scaleFont(11)}>
+          {errors[fieldName]}
+        </StyledText>
+      )}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  // container: {
-  //   // alignItems: "center",
-  //   width: '85%',
-  // },
   errorField: {
     borderWidth: 1,
     borderColor: 'red',
-  },
-  errorText: {
-    color: 'red',
   },
   field: {
     alignItems: 'flex-start',

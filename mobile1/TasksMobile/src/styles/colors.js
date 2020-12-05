@@ -8,6 +8,8 @@ export const PRIMARY_BLUE = '#aec6cf';
 export const SECONDARY_BLUE = '#4e90a9';
 export const PRIMARY_RED = '#ff6961';
 export const SECONDARY_RED = '#ff392e';
+export const PRIMARY_ORANGE = '#ff7518';
+export const SECONDARY_ORANGE = '#ff4500';
 
 export const QUATERNARY = '#732C02';
 export const QUINARY = '#733B2F';

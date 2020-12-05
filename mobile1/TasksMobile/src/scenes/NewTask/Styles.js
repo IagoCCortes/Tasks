@@ -1,7 +1,7 @@
 import LinearGradient from 'react-native-linear-gradient';
 import styled from 'styled-components/native';
-import {WHITE} from '../../styles/colors';
-import {boxShadow, scaleSize} from '../../styles/mixins';
+import * as colors from '../../styles/colors';
+import * as mixins from '../../styles/mixins';
 
 export const BackGroundImage = styled.Image`
   height: 100%;
@@ -15,9 +15,9 @@ export const ButtonsContainer = styled.View`
 `;
 
 export const Card = styled.View`
-  background-color: ${WHITE};
+  background-color: ${colors.WHITE};
   border-radius: 10px;
-  ${boxShadow()};
+  ${mixins.boxShadow()};
   width: 95%;
 `;
 
@@ -39,10 +39,10 @@ export const Container = styled.View`
 export const FormContainer = styled.View`
   align-items: center;
   justify-content: center;
-  margin-horizontal: ${scaleSize(20)};
-  margin-vertical: ${scaleSize(10)};
-  padding-bottom: ${scaleSize(30)};
-  padding-top: ${scaleSize(65)};
+  margin-horizontal: ${mixins.scaleSize(20)};
+  margin-vertical: ${mixins.scaleSize(10)};
+  padding-bottom: ${mixins.scaleSize(30)};
+  padding-top: ${mixins.scaleSize(65)};
 `;
 
 export const ImageContainer = styled.View`
@@ -60,18 +60,44 @@ export const Logo = styled.Image`
 
 export const LogoContainer = styled.View`
   align-items: center;
-  background-color: ${WHITE};
+  background-color: ${colors.WHITE};
   border-radius: 20px;
-  ${boxShadow()};
-  height: ${scaleSize(110)};
+  ${mixins.boxShadow()};
+  height: ${mixins.scaleSize(110)};
   justify-content: center;
   position: absolute;
-  top: ${scaleSize(-65)};
-  width: ${scaleSize(110)};
+  top: ${mixins.scaleSize(-65)};
+  width: ${mixins.scaleSize(110)};
 `;
 
 export const MiniLogo = styled.Image`
-  height: 100;
+  height: ${mixins.scaleSize(100)};
   position: absolute;
   resize-mode: contain;
+`;
+
+export const Tag = styled.Text`
+  border-radius: 15;
+  color: ${colors.WHITE};
+  font-size: ${mixins.scaleFont(18)};
+  margin-right: ${mixins.scaleSize(5)};
+  ${mixins.padding(10, 10, 10, 10)};
+`;
+
+export const Type = styled.TouchableOpacity`
+  align-items: center;
+  background-color: ${colors.GRAY_DARK_1};
+  border-radius: 5;
+  height: ${mixins.scaleSize(60)};
+  justify-content: center;
+  width: ${mixins.scaleSize(60)};
+`;
+
+export const TypesRow = styled.View`
+  align-self: center;
+  background-color: ${colors.SECONDARY_RED};
+  flex-direction: row;
+  justify-content: space-around;
+  ${mixins.padding(5, 0, 5, 0)};
+  width: 100%;
 `;

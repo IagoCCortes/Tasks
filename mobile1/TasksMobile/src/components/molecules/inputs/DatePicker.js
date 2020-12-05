@@ -1,17 +1,24 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {GRAY_DARK, SUCCESS, GRAY_MEDIUM_2} from 'styles/colors';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import * as colors from 'styles/colors';
+import * as mixins from 'styles/mixins';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {format} from 'date-fns';
+import {StyledText} from '../../styledComponents';
 
-const FormDatePickerNative = ({errors, setFieldValue, touched, values, name, fieldName}) => {
-  const [showHeader, setShowHeader] = useState(false);
+const FormDatePickerNative = ({errors, setFieldValue, touched, values, name, fieldName, width = '85%'}) => {
   const [show, setShow] = useState(false);
 
+  const anyErrors = touched[fieldName] && errors[fieldName];
+
   return (
-    <View style={styles.inputField}>
-      {showHeader && <Text style={styles.fieldHeader}>{name}</Text>}
-      <View style={{...styles.date, borderColor: showHeader ? SUCCESS : GRAY_DARK}}>
+    <View style={{width}}>
+      <StyledText color={anyErrors ? colors.PRIMARY_RED : colors.GRAY_MEDIUM_2} fontSize={mixins.scaleFont(15)}>
+        {name}
+      </StyledText>
+      <TouchableOpacity
+        onPress={() => setShow(true)}
+        style={{...styles.textField, ...(anyErrors ? styles.errorField : {})}}>
         {show && (
           <DateTimePicker
             mode="date"
@@ -19,7 +26,6 @@ const FormDatePickerNative = ({errors, setFieldValue, touched, values, name, fie
             onChange={(e, date) => {
               setShow(false);
               setFieldValue('dueDate', date);
-              setShowHeader(true);
             }}
             is24Hour={true}
             value={values[fieldName] ? new Date(values[fieldName]) : new Date()}
@@ -27,49 +33,32 @@ const FormDatePickerNative = ({errors, setFieldValue, touched, values, name, fie
             locale={'en'}
           />
         )}
-        <Text style={{...styles.fieldHeader, color: showHeader ? GRAY_DARK : GRAY_MEDIUM_2}}>
-          {showHeader ? format(new Date(values[fieldName]), 'dd/MM/yyyy') : 'Due date'}
-        </Text>
-        <TouchableOpacity style={{height: '100%'}} onPress={() => setShow(true)} />
-      </View>
-      {touched[fieldName] && errors[fieldName] && <Text style={styles.error}>{errors[fieldName]}</Text>}
+        <StyledText color={values[fieldName] ? colors.BLACK : colors.GRAY_MEDIUM_2} fontSize={mixins.scaleFont(20)}>
+          {values[fieldName] ? format(new Date(values[fieldName]), 'yyyy/MM/dd') : 'YYYY/MM/DD'}
+        </StyledText>
+      </TouchableOpacity>
+      {anyErrors && (
+        <StyledText color={colors.PRIMARY_RED} fontSize={mixins.scaleFont(11)}>
+          {errors[fieldName]}
+        </StyledText>
+      )}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  date: {
-    borderBottomWidth: 2,
-    height: 40,
-    marginTop: 20,
+  errorField: {
+    borderWidth: 1,
+    borderColor: colors.PRIMARY_RED,
   },
-  dateText: {
-    color: GRAY_DARK,
-    fontSize: 15,
-  },
-  error: {
-    fontSize: 10,
-    color: 'red',
-  },
-  fieldHeader: {
-    color: GRAY_DARK,
-    fontSize: 15,
-    left: 4.3,
-    position: 'absolute',
-    top: 30,
-    transform: [{translateY: -20}],
-  },
-  inputField: {},
   textField: {
-    borderColor: GRAY_DARK,
-    borderBottomWidth: 2,
-    color: GRAY_DARK,
-    height: 40,
-    marginTop: 20,
-    zIndex: 100,
-  },
-  textFieldFocused: {
-    borderColor: SUCCESS,
+    backgroundColor: colors.GRAY_LIGHT_1,
+    borderRadius: 5,
+    ...mixins.boxShadow(),
+    height: mixins.scaleSize(45),
+    justifyContent: 'center',
+    marginTop: mixins.scaleSize(10),
+    ...mixins.padding(0, 10, 0, 10),
   },
 });
 

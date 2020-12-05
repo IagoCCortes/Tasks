@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text as TextField, StyleSheet} from 'react-native';
 import {GRAY_LIGHT_1} from 'styles/colors';
-import FilterSwitch from 'components/molecules/FilterSwitch';
+import FilterSwitch from 'components/molecules/inputs/FilterSwitch';
 import ListTypes from 'components/organisms/ListTypes';
 import typesData from 'assets/tempData/types';
 
