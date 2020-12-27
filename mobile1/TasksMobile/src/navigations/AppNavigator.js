@@ -6,6 +6,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import * as colors from 'styles/colors';
 import Home from '../scenes/home';
 import Header from './Header';
+import tasks from '../scenes/tasks';
 Icon.loadFont();
 
 const StackTasks = createStackNavigator();
@@ -27,6 +28,7 @@ const AppNavigator = () => (
     <StackTasks.Screen name="Home" component={Home} />
     <StackTasks.Screen name="Task" component={TaskDetail} />
     <StackTasks.Screen name="New" component={NewTask} />
+    <StackTasks.Screen name="Tasks" component={tasks} />
   </StackTasks.Navigator>
 );
 

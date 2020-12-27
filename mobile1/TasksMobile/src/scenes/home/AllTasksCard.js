@@ -3,25 +3,21 @@ import {ImageBackground, StyleSheet, TouchableOpacity, View} from 'react-native'
 import * as colors from 'styles/colors';
 import * as mixins from 'styles/mixins';
 import Icon from 'react-native-vector-icons/Ionicons';
-import resolveCardIcon from '../../utils/resolveCardIcon';
 import {StyledText} from '../../components/styledComponents';
 import {navigate} from '../../RootNavigation';
 
-export default ({task}) => {
-  const types = task.types.map((type) => type.name);
-  const icon = resolveCardIcon(types);
-
+export default () => {
   return (
-    <TouchableOpacity onPress={() => navigate('Task', {task})}>
+    <TouchableOpacity onPress={() => navigate('Tasks')}>
       <ImageBackground
-        source={require(`assets/images/background5.jpg`)}
+        source={require(`assets/images/background4.jpg`)}
         imageStyle={{borderRadius: 15}}
         style={styles.container}>
         <View style={styles.iconContainer}>
-          <Icon name={icon} size={mixins.scaleSize(75)} color={colors.WHITE} />
+          <Icon name="albums" size={mixins.scaleSize(75)} color={colors.WHITE} />
         </View>
         <StyledText bold fontSize={20} color={colors.WHITE}>
-          {task.name}
+          All tasks
         </StyledText>
       </ImageBackground>
     </TouchableOpacity>

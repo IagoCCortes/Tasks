@@ -20,7 +20,7 @@ export default ({errors, handleChange, handleBlur, touched, values, name, fieldN
       <TextInput
         autoCapitalize="none"
         style={{...styles.input, ...(anyErrors ? styles.errorField : {})}}
-        onChangeText={handleChange(fieldName)}
+        onChangeText={() => handleChange(fieldName)}
         onBlur={blur}
         value={values[fieldName]}
         maxLength={40}

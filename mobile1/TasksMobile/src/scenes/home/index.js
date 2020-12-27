@@ -8,6 +8,7 @@ import TaskCard from './TaskCard';
 import {Container} from 'components/styledComponents';
 import CircleButton from '../../components/atoms/buttons/CircleButton';
 import * as mixins from 'styles/mixins';
+import AllTasksCard from './AllTasksCard';
 
 export default ({navigation}) => {
   const {getFiltered, state: taskState} = useContext(TaskContext);
@@ -15,7 +16,7 @@ export default ({navigation}) => {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    // signout();
+    signout();
 
     const unsubscribe = navigation.addListener('focus', async () => {
       const response = await getFiltered();
@@ -40,6 +41,7 @@ export default ({navigation}) => {
         <Container flex={4} justifyContent="space-around">
           <ScrollView horizontal showsHorizontalScrollIndicator={false} bounces contentContainerStyle={styles.scroll}>
             {tasks.length > 0 ? tasks.map((task, id) => <TaskCard key={id} task={task} />) : <Text>No data</Text>}
+            <AllTasksCard />
           </ScrollView>
         </Container>
         <CircleButton goesTo="New" />

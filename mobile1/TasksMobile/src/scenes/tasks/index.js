@@ -1,59 +1,63 @@
 import React, {useState, useContext, useEffect} from 'react';
-import {View, FlatList, Animated, StyleSheet} from 'react-native';
-import ListItem from 'components/molecules/ListItem';
-import {GRAY_LIGHT_3, PRIMARY_PURPLE, SECONDARY_PURPLE} from 'styles/colors';
+import {View, Animated, StyleSheet} from 'react-native';
+import * as colors from 'styles/colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Filters from './Filters';
 import RegularHeader from './RegularHeader';
 import SearchHeader from './SearchHeader';
 import {Context as TaskContext} from 'services/context/TaskContext';
-import AlternativeLoading from '../loading';
+import {Container, HeaderSpacing} from '../../components/styledComponents';
+import * as mixins from 'styles/mixins';
+import TaskCard from './TaskCard';
+import Loading from 'components/organisms/Loading';
+import {StyledFlatlist} from './Styles';
 Icon.loadFont();
 
-const TasksScreen = ({navigation}) => {
+export default ({navigation}) => {
   const {getFiltered, state: taskState} = useContext(TaskContext);
-  const searchFieldAnimationValue = useState(new Animated.Value(500))[0];
-  const filtersAnimationValue = useState(new Animated.Value(-1000))[0];
-  const [search, setSearch] = useState(false);
-  const [filter, setFilter] = useState(false);
-  const [loading, setLoading] = useState(true);
+  // const searchFieldAnimationValue = useState(new Animated.Value(500))[0];
+  // const filtersAnimationValue = useState(new Animated.Value(-1000))[0];
+  // const [search, setSearch] = useState(false);
+  // const [filter, setFilter] = useState(false);
+  const [tasks, setTasks] = useState([]);
+
+  const y = new Animated.Value(0);
+  const onScroll = Animated.event([{nativeEvent: {contentOffset: {y}}}], {useNativeDriver: true});
 
   useEffect(() => {
-    async function loadtasks() {
-      if (taskState?.tasks === undefined) {
-        await getFiltered();
-      }
-      setLoading(false);
-    }
+    const unsubscribe = navigation.addListener('focus', async () => {
+      const response = await getFiltered();
+      setTasks(response);
+    });
 
-    setLoading(true);
-    loadtasks();
+    return unsubscribe;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const animateSearch = () => {
-    !search ? setSearch(true) : null;
-    Animated.timing(searchFieldAnimationValue, {
-      toValue: !search ? 0 : 500,
-      duration: 150,
-      useNativeDriver: true,
-    }).start(() => (search ? setSearch(false) : null));
-  };
+  // const animateSearch = () => {
+  //   !search ? setSearch(true) : null;
+  //   Animated.timing(searchFieldAnimationValue, {
+  //     toValue: !search ? 0 : 500,
+  //     duration: 150,
+  //     useNativeDriver: true,
+  //   }).start(() => (search ? setSearch(false) : null));
+  // };
 
-  const animateFilters = () => {
-    !filter ? setFilter(true) : null;
-    Animated.timing(filtersAnimationValue, {
-      toValue: !filter ? 0 : -1000,
-      duration: 150,
-      useNativeDriver: true,
-    }).start(() => (filter ? setFilter(false) : null));
-  };
-
-  if (loading) return <AlternativeLoading active={true} />;
+  // const animateFilters = () => {
+  //   !filter ? setFilter(true) : null;
+  //   Animated.timing(filtersAnimationValue, {
+  //     toValue: !filter ? 0 : -1000,
+  //     duration: 150,
+  //     useNativeDriver: true,
+  //   }).start(() => (filter ? setFilter(false) : null));
+  // };
 
   return (
     <>
-      <View style={search ? {...styles.header, ...styles.headerSearch} : styles.header}>
+      <HeaderSpacing />
+      {taskState.loading && <Loading active={true} />}
+      <Container bgColor={colors.WHITE}>
+        {/* <View style={{...styles.header, ...(search ? styles.headerSearch : {})}}>
         {search ? (
           <Animated.View
             style={{
@@ -71,25 +75,24 @@ const TasksScreen = ({navigation}) => {
         <Animated.View style={{...styles.filters, transform: [{translateX: filtersAnimationValue}]}}>
           <Filters />
         </Animated.View>
-      )}
-      <FlatList
-        style={styles.body}
-        contentContainerStyle={{alignItems: 'stretch'}}
-        data={taskState?.tasks}
-        keyExtractor={(task) => task._id}
-        renderItem={({item}) => <ListItem data={item} navigation={navigation} />}
-      />
+      )} */}
+        <StyledFlatlist
+          as={Animated.FlatList}
+          scrollEventThrottle={16}
+          data={tasks}
+          keyExtractor={(task) => task._id}
+          renderItem={({item, index}) => <TaskCard task={item} y={y} index={index} />}
+          onScroll={onScroll}
+        />
+      </Container>
     </>
   );
 };
 
 const styles = StyleSheet.create({
-  body: {
-    backgroundColor: GRAY_LIGHT_3,
-  },
   filters: {
     alignItems: 'center',
-    backgroundColor: SECONDARY_PURPLE,
+    backgroundColor: colors.SECONDARY_PURPLE,
     height: '100%',
     position: 'absolute',
     top: 70,
@@ -98,7 +101,7 @@ const styles = StyleSheet.create({
   },
   header: {
     alignItems: 'center',
-    backgroundColor: PRIMARY_PURPLE,
+    backgroundColor: colors.PRIMARY_PURPLE,
     flexDirection: 'row',
     height: 70,
     justifyContent: 'space-between',
@@ -107,5 +110,3 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
-
-export default TasksScreen;

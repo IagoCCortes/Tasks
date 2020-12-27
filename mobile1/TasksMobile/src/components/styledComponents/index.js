@@ -1,3 +1,4 @@
+import {StatusBar} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import styled from 'styled-components/native';
 import * as colors from '../../styles/colors';
@@ -6,7 +7,7 @@ import * as typography from '../../styles/typography';
 
 export const Card = styled.View`
   background-color: ${colors.WHITE};
-  border-radius: 10px;
+  border-radius: 10;
   ${mixins.boxShadow()};
   margin-bottom: ${(props) => mixins.scaleSize(props.marginBottom ? props.marginBottom : 0)};
   margin-top: ${(props) => mixins.scaleSize(props.marginTop ? props.marginTop : 0)};
@@ -31,6 +32,12 @@ export const Container = styled.View`
 
 export const Flex = styled.View`
   flex: ${(props) => (props.size ? props.size : 1)};
+`;
+
+export const HeaderSpacing = styled.View`
+  background-color: ${(props) => (props.bgColor ? props.bgColor : colors.SECONDARY_BLUE)};
+  width: ${mixins.WINDOW_WIDTH};
+  height: ${mixins.scaleSize(55 + StatusBar.currentHeight)};
 `;
 
 export const Row = styled.View`

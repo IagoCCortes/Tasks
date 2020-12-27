@@ -1,10 +1,10 @@
 export default (types) =>
   types.includes('physical')
-    ? {icon: 'bicycle'}
+    ? 'bicycle'
     : types.includes('problem')
-    ? {icon: 'warning'}
+    ? 'warning'
     : types.includes('project')
-    ? {icon: 'construct'}
+    ? 'construct'
     : types.includes('relax')
-    ? {icon: 'game-controller'}
-    : {icon: 'shapes'};
+    ? 'game-controller'
+    : 'shapes';

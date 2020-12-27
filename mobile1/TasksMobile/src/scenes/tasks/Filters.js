@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text as TextField, StyleSheet} from 'react-native';
 import {GRAY_LIGHT_1} from 'styles/colors';
-import FilterSwitch from 'components/molecules/inputs/FilterSwitch';
+import Switch from 'components/molecules/inputs/Switch';
 import ListTypes from 'components/organisms/ListTypes';
 import typesData from 'assets/tempData/types';
 
@@ -23,11 +23,11 @@ const Filters = () => {
     <>
       <View style={styles.switchView}>
         <TextField style={styles.textFilterName}>Completed</TextField>
-        <FilterSwitch value={switches.status} toggleSwitch={toggleSwitch} choices={['off', 'on']} />
+        <Switch value={switches.status} toggleSwitch={toggleSwitch} choices={['off', 'on']} />
       </View>
       <View style={styles.switchView}>
         <TextField style={styles.textFilterName}>Only routines</TextField>
-        <FilterSwitch value={switches.status} toggleSwitch={toggleSwitch} choices={['off', 'on']} />
+        <Switch value={switches.status} toggleSwitch={toggleSwitch} choices={['off', 'on']} />
       </View>
       <ListTypes select={select} types={types} />
     </>
